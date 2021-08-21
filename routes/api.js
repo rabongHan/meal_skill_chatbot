@@ -11,12 +11,11 @@ apiRouter.get('/keyboard', function(req, res) {
 });
 
  apiRouter.post('/monthlymeal', async function(req,res) {
-   const monthlydatetime = req.body.action.detailParams.datetime.origin;
-    const monthlymeal_result = monthlydatetime.substring(9,11);
+    const monthlydatetime = req.body.action.detailParams.datetime.origin;
 
     const meal2 = await school.getMeal({default: '이 날은 급식이 없습니다.'});
-    const monthly_printing = meal[monthlymeal_result];
-    const monthly_printing = meal2[monthlymeal_result];
+    const monthly_printing = meal[monthlydatetime];
+
     console.log(req.body);
 
     const responseBody = {
@@ -25,7 +24,7 @@ apiRouter.get('/keyboard', function(req, res) {
        outputs: [
          {
            simpleText: {
-             text: `${meal2.month}월 ${monthlymeal_result}일 급식정보 \n` + monthly_printing
+             text: `${meal2.month}월 ${monthlydatetime}일 급식정보 \n` + monthly_printing
            }
          }
        ] 
