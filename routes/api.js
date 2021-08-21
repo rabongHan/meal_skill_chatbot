@@ -11,7 +11,8 @@ apiRouter.get('/keyboard', function(req, res) {
 });
 //문제점: 01 은 1로 바뀌어서 변환되어야함. 21은 괜찮 but 01,09는 안괜찮
  apiRouter.post('/monthlymeal', async function(req,res) {
-    const preprepre = req.body.action.params.date;
+    const monthlydatetime = req.body.action.params.date;
+
     const monthlymeal_result = monthlydatetime.substring(9,11);
 
     const meal2 = await school.getMeal({default: '이 날은 급식이 없습니다.'});
