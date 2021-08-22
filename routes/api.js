@@ -10,7 +10,7 @@ school.init(School.Type.HIGH, School.Region.GYEONGGI, 'J100005286')
     res.json(data);
  });
 //문제점: 01 은 1로 바뀌어서 변환되어야함. 21은 괜찮 but 01,09는 안괜찮
- apiRouter.post('/monthlymeal', function(req,res) {
+ apiRouter.post('/monthlymeal', async function(req,res) {
     const userAction = req.body.action;
     const monthlydatetime = userAction.params.date;
     const monthlymeal_result = monthlydate.substring(18,20);
