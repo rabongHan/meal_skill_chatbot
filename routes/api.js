@@ -12,8 +12,9 @@ school.init(School.Type.HIGH, School.Region.GYEONGGI, 'J100005286')
 //문제점: 01 은 1로 바뀌어서 변환되어야함. 21은 괜찮 but 01,09는 안괜찮
  apiRouter.post('/monthlymeal', async function(req,res) {
     const userAction = req.body.action;
-    const monthlydatetime = userAction.params.date;
-    const monthlymeal_result = monthlydate.substring(18,20);
+    const preMap = userAction.params;
+    const monthlydate = JSON.stringify(Array.from(preMap.entries()));
+    const monthlymeal_result = monthlydate.substring(31,33);
 
     const meal2 = await school.getMeal({default: '이 날은 급식이 없습니다.'});
     const monthly_printing = meal[monthlymeal_result];

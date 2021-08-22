@@ -1,5 +1,7 @@
-const asdf = "{\"value\":\"2018-03-20T10:15:00\",\"userTimeZone\":\"UTC+9\"}"
+const map = new Map();
 
-const dd = asdf.substring(18,20)
+map.set('date', '{\"value\":\"2018-03-20\",\"userTimeZone\":\"UTC+9\"}');
 
-console.log(dd);
+const str = JSON.stringify(Array.from(map.entries()));
+
+console.log(str.substring(31,33));
