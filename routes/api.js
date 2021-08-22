@@ -13,8 +13,8 @@ school.init(School.Type.HIGH, School.Region.GYEONGGI, 'J100005286')
  apiRouter.post('/monthlymeal', async function(req,res) {
     const userAction = req.body.action;
     const preMap = userAction.params;
-    const monthlydate = JSON.stringify(Array.from(preMap.entries()));
-    const monthlymeal_result = monthlydate.substring(31,33);
+    const monthlydate = preMap.get('date')
+    const monthlymeal_result = monthlydate.substring(18,20);
 
     const meal2 = await school.getMeal({default: '이 날은 급식이 없습니다.'});
     const monthly_printing = meal[monthlymeal_result];
