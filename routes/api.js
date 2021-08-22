@@ -9,7 +9,8 @@ apiRouter.get('/keyboard', function(req, res) {
   const data = {'type' : 'text'}
   res.json(data);  
 });
-//문제점: 01 은 1로 바뀌어서 변환되어야함. 21은 괜찮 but 01,09는 안괜찮
+
+
 apiRouter.post('/monthlymeal', async function(req,res) {
   const preMap = req.body.action.params;
   const monthlydate = preMap.get("date");
