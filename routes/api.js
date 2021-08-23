@@ -41,4 +41,27 @@ apiRouter.post('/monthlymeal', async function(req,res) {
   };
   res.status(200).send(responseBody)
 });
+
+apiRouter.post('/tomorrowmeal', async function(req,res) {
+  const meal3 = await school.getMeal({default: '이 날은 급식이 없습니다.'});
+  const tomorrow_number = Number(meal3.day) + 1;
+  const tomorrow_string = String(tomorrow_number);
+  const tomorrow_printing = meal3[tomorrow_string];
+
+  console.log(req.body);
+
+  const responseBody = {
+    version: "2.0",
+    template: {
+      outputs: [
+        {
+          simpleText: {
+            text: `${meal3.month}월 ${tomorrow_string}일 급식정보 \n` + tomorrow_printing
+          }
+        }
+      ] 
+    }
+  };
+  res.status(200).send(responseBody)
+});
 module.exports = apiRouter;
