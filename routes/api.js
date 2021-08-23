@@ -39,7 +39,7 @@ apiRouter.post('/monthlymeal', async function(req,res) {
       ] 
     }
   };
-  res.status(200).send(responseBody)
+  res.json(responseBody)
 });
 
 apiRouter.post('/tomorrowmeal', async function(req,res) {
@@ -62,6 +62,6 @@ apiRouter.post('/tomorrowmeal', async function(req,res) {
       ] 
     }
   };
-  res.status(200).send(responseBody)
+  res.json(responseBody)
 });
 module.exports = apiRouter;
