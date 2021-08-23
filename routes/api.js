@@ -21,11 +21,11 @@ apiRouter.post('/monthlymeal', async function(req,res) {
   const monthlymeal_result = monthlydate.substring(30,32);
   
   if(monthlymeal_result.charAt(0) == '0') {
-    const monthlymeal_result = monthlymeal_result.replaceAt(0, "");
+    var monthlymeal_result2 = monthlymeal_result.replaceAt(0, "");
   };
-  
+
   const meal2 = await school.getMeal({default: '이 날은 급식이 없습니다.'});
-  const monthly_printing = meal2[monthlymeal_result];
+  const monthly_printing = meal2[monthlymeal_result2];
 
   console.log(req.body);
 
