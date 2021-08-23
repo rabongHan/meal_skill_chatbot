@@ -10,12 +10,20 @@ apiRouter.get('/keyboard', function(req, res) {
   res.json(data);  
 });
 
+//string index 변경 function
+String.prototype.replaceAt=function(index, character) {
+  return this.substr(0, index) + character + this.substr(index+character.length);
+}
 
 apiRouter.post('/monthlymeal', async function(req,res) {
   const preMap = req.body.action.params;
   const monthlydate = JSON.stringify(preMap);
   const monthlymeal_result = monthlydate.substring(30,32);
-
+  
+  if(monthlymeal_result.charAt(0) == '0') {
+    const monthlymeal_result = monthlymeal_result.replaceAt(0, "");
+  };
+  
   const meal2 = await school.getMeal({default: '이 날은 급식이 없습니다.'});
   const monthly_printing = meal2[monthlymeal_result];
 
