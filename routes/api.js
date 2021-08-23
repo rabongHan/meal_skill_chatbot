@@ -18,6 +18,8 @@ apiRouter.post('/monthlymeal', async function(req,res) {
   
   if(monthlymeal_result.charAt(0) == '0') {
     var monthlymeal_result2 = monthlymeal_result.substring(1);
+  } else {
+    var monthlymeal_result2 = monthlymeal_result;
   };
 
   const meal2 = await school.getMeal({default: '이 날은 급식이 없습니다.'});
