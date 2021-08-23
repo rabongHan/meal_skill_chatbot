@@ -14,7 +14,7 @@ apiRouter.get('/keyboard', function(req, res) {
 apiRouter.post('/monthlymeal', async function(req,res) {
   const preMap = req.body.action.params;
   const monthlydate = JSON.stringify(preMap);
-  const monthlymeal_result = monthlydate.substring(29,31);
+  const monthlymeal_result = monthlydate.substring(30,32);
 
   const meal2 = await school.getMeal({default: '이 날은 급식이 없습니다.'});
   const monthly_printing = meal2[monthlymeal_result];
