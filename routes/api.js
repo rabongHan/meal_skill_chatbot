@@ -12,7 +12,7 @@ apiRouter.get('/keyboard', function(req, res) {
 
 
 apiRouter.post('/monthlymeal', async function(req,res) {
-  const preMap = req.body.action.params;
+  const preMap = req.body.action.detailParams;
   const monthlydate = JSON.stringify(preMap);
   const monthlymeal_result = monthlydate.substring(30,32);
   
