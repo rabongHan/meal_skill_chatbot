@@ -1,6 +1,6 @@
 const apiRouter = require("express").Router();
 const modernizr = require("modernizr"); //mobile checking
-
+//mobile checking function
 function mobileChecking() {
   if(modernizr.touchevents) {
     return true;
@@ -107,5 +107,26 @@ apiRouter.post('/todaymeal', async function(req,res) {
   res.json(responseBody)
 });
 
+
+//block ID checking 챗봇 코드
+apiRouter.post('/blockId', async function(req,res) {
+  const blockId = req.body.userRequest.block.id;
+
+  console.log(req.body);
+
+  const responseBody = {
+    version: "2.0",
+    template: {
+      outputs: [
+        {
+          simpleText: {
+            text: blockId
+          }
+        }
+      ] 
+    }
+  };
+  res.json(responseBody)
+});
 
 module.exports = apiRouter;
