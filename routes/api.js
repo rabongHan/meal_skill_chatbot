@@ -1,4 +1,13 @@
 const apiRouter = require("express").Router();
+const modernizr = require("modernizr"); //mobile checking
+
+function mobileChecking() {
+  if(Modernizr.touchevents) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 const School = require('school-kr')
 const school = new School()
@@ -15,7 +24,12 @@ apiRouter.post('/monthlymeal', async function(req,res) {
   const preMap = req.body.action.detailParams;
   const monthlydate = JSON.stringify(preMap);
   // const monthlymeal_result = monthlydate.substring(30,32); for params 
-  const monthlymeal_result = monthlydate.substring(31,33);
+  if(mobileChecking) {
+    var monthlymeal_result = monthlydate.substring(15,17);
+  } else {
+    var monthlymeal_result = monthlydate.substring(31,33);
+  }
+  
 
   if(monthlymeal_result.charAt(0) == '0') {
     var monthlymeal_result2 = monthlymeal_result.substring(1);
