@@ -66,8 +66,8 @@ apiRouter.post('/tomorrowmeal', async function(req,res) {
   var tomorrowdate = new Date(todaydate.setDate(todaydate.getDate() + 1));
   //오늘 달 == 내일 달 이면 같은 달 BUT 오늘 달 != 내일 달 이면 다른 달
   if(todaydate.getMonth() != tomorrowdate.getMonth()) {
-    const meal3_1 = await school.getMeal({year: 2021, month: Number(tomorrowdate.getMonth()), default: '이 날은 급식이 없습니다.'})
-    const tomorrow_printing_1 = meal3_1['1'];
+    const meal3_1 = await school.getMeal({year: 2021, month: tomorrowdate.getMonth(), default: '이 날은 급식이 없습니다.'})
+    const tomorrow_printing_1 = meal3_1[1];
 
     console.log(req.body);
 
