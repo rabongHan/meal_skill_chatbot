@@ -111,7 +111,8 @@ var userDB = {}; //DataBase for student number
 //학번 등록 챗봇 코드
 apiRouter.post('/addStudentNum', async function(req,res) {
   const userId = req.body.userRequest.user.id; //kakao 식별자
-  const userStudentNum = req.body.userRequest.utterance; 
+  const temp = req.body.action.params;
+  const userStudentNum = JSON.stringify(temp); 
   if(userStudentNum.length == 5) {
     userDB[userId] = userStudentNum; // studentNum 저장    
   };
