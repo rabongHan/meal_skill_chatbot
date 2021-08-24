@@ -130,7 +130,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       outputs: [
         {
           basicCard: {
-            description: `${userStudentNum}` + extra_text
+            description: `${userStudentNum} 학번이 등록되었습니다.` 
           }
         }
       ] 
