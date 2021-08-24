@@ -2,7 +2,7 @@ const apiRouter = require("express").Router();
 const modernizr = require("modernizr"); //mobile checking
 
 function mobileChecking() {
-  if(Modernizr.touchevents) {
+  if(modernizr.touchevents) {
     return true;
   } else {
     return false;
