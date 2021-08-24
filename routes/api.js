@@ -132,6 +132,33 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   };
   res.json(responseBody)
 });
+// 학번 등록 블록 call 코드
+apiRouter.post('/calladding', async function(req,res) {
+  console.log(req.body);
+
+  const responseBody = {
+    version: "2.0",
+    template: {
+      outputs: [
+        {
+          simpleText: {
+            text: "아래 버튼을 눌러 학번을 등록해주세요"
+          }
+        }
+      ],
+      quickReplies: [
+        {
+          action: "block",
+          label: "학번 등록",
+          blockId: "6124baf3c67cf70587a192c7"
+        }
+      ] 
+    }
+  };
+  res.json(responseBody)
+});
+// 학번 수정 챗봇 코드
+
 
 
 //block ID checking 챗봇 코드
