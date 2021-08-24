@@ -107,6 +107,32 @@ apiRouter.post('/todaymeal', async function(req,res) {
   res.json(responseBody)
 });
 
+var userDB = {}; //DataBase for student number 
+//학번 등록 챗봇 코드
+apiRouter.post('/addStudentNum', async function(req,res) {
+  const userId = req.body.userRequest.user.id; //kakao 식별자
+  const userStudentNum = req.body.userRequest.utterance; 
+  if(userStudentNum.length == 5) {
+    userDB[userId] = userStudentNum; // studentNum 저장    
+  };
+
+  console.log(req.body);
+
+  const responseBody = {
+    version: "2.0",
+    template: {
+      outputs: [
+        {
+          basicCard: {
+            description: `학번 ${userStudentNum}이 저장되었습니다.`
+          }
+        }
+      ] 
+    }
+  };
+  res.json(responseBody)
+});
+
 
 //block ID checking 챗봇 코드
 apiRouter.post('/blockId', async function(req,res) {
