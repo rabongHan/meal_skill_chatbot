@@ -65,7 +65,7 @@ apiRouter.post('/tomorrowmeal', async function(req,res) {
   var todaydate = new Date();
   var tomorrowdate = new Date(todaydate.setDate(todaydate.getDate() + 1));
   
-  const meal3 = await school.getMeal({year: 2021, month: tomorrowdate.getMonth(), default: '이 날은 급식이 없습니다.'})
+  const meal3 = await school.getMeal({year: 2021, month: tomorrowdate.getMonth() + 1, default: '이 날은 급식이 없습니다.'})
   const tomorrow_printing = meal3[tomorrowdate.getDate()];
 
   console.log(req.body);
