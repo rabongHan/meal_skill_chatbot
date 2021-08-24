@@ -64,48 +64,25 @@ apiRouter.post('/tomorrowmeal', async function(req,res) {
   //오늘 날짜 & 내일 날짜
   var todaydate = new Date();
   var tomorrowdate = new Date(todaydate.setDate(todaydate.getDate() + 1));
-  //오늘 달 == 내일 달 이면 같은 달 BUT 오늘 달 != 내일 달 이면 다른 달
-  if(todaydate.getMonth() != tomorrowdate.getMonth()) {
-    const meal3_1 = await school.getMeal({year: 2021, month: tomorrowdate.getMonth(), default: '이 날은 급식이 없습니다.'})
-    const tomorrow_printing_1 = meal3_1[1];
+  
+  const meal3 = await school.getMeal({year: 2021, month: tomorrowdate.getMonth(), default: '이 날은 급식이 없습니다.'})
+  const tomorrow_printing = meal3[tomorrowdate.getDate()];
 
-    console.log(req.body);
+  console.log(req.body);
 
-    const responseBody = {
-      version: "2.0",
-      template: {
-        outputs: [
-          {
-            simpleText: {
-              text: `${meal3_1.month}월 1일 급식정보 \n` + tomorrow_printing_1
-            }
+  const responseBody = {
+    version: "2.0",
+    template: {
+      outputs: [
+        {
+          simpleText: {
+            text: `${meal3.month}월 ${tomorrowdate.getDate()}일 급식정보 \n` + tomorrow_printing
           }
-        ]
-      }
-    };
-    res.json(responseBody);
-  } else {
-    const meal3_2 = await school.getMeal({default: '이 날은 급식이 없습니다.'});
-    const tomorrow_number = Number(meal3.day) + 1;
-    const tomorrow_string = String(tomorrow_number);
-    const tomorrow_printing_2 = meal3[tomorrow_string];
-
-    console.log(req.body);
-
-    const responseBody = {
-        version: "2.0",
-        template: {
-        outputs: [
-          {
-            simpleText: {
-              text: `${meal3_2.month}월 ${tomorrow_string}일 급식정보 \n` + tomorrow_printing_2
-            }
-          }
-        ] 
-      }
-    };
-    res.json(responseBody);
+        }
+      ]
+    }
   };
+  res.json(responseBody);
 });
 
 //오늘 급식 챗봇 코드
