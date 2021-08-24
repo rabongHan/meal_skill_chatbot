@@ -111,11 +111,23 @@ var userDB = {}; //DataBase for student number
 //학번 등록 챗봇 코드
 apiRouter.post('/addStudentNum', async function(req,res) {
   const userId = req.body.userRequest.user.id; //kakao 식별자
-  const temp = req.body.action.params;
-  const userStudentNum = JSON.stringify(temp); 
+  const temp = req.body.action.params; //params로 학번 담긴 params 전부 받아옴 {"number":"{\"amount\": 30324, \"unit\": null}"}
+  const temp2 = JSON.stringify(temp); //[object object] --> string
+  
+  //mobilechecking
+  if(mobileChecking) {
+    var userStudentNum = temp2.substring(23,28);
+  } else {
+    var userStudentNum = temp2.substring(23,28);
+  }
+  
+  //숫자인지 여부는 챗봇에서 판단, 5자리 여부는 코딩에서 판단 
   if(userStudentNum.length == 5) {
-    userDB[userId] = userStudentNum; // studentNum 저장    
-  };
+    userDB[userId] = userStudentNum; // studentNum 저장  
+    var extra_text = "학번이 저장되었습니다.";
+  } else {
+    var extra_text = "학번이 없습니다";
+  }
 
   console.log(req.body);
 
@@ -125,7 +137,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       outputs: [
         {
           basicCard: {
-            description: `학번 ${userStudentNum}이 저장되었습니다.`
+            description: `${userStudentNum}` + extra_text
           }
         }
       ] 
