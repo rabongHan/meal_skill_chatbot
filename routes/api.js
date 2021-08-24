@@ -27,7 +27,7 @@ apiRouter.post('/monthlymeal', async function(req,res) {
   if(mobileChecking) {
     var monthlymeal_result = monthlydate.substring(40,42);
   } else {
-    var monthlymeal_result = monthlydate.substring(26,28);
+    var monthlymeal_result = monthlydate.substring(29,31);
   }
   
 
