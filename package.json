@@ -1,10 +1,10 @@
 {
   "name": "monthlymeal",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -16,5 +16,15 @@
     "morgan": "^1.10.0",
     "school-kr": "^3.1.2",
     "modernizr": "^3.11.8"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rabongHan/meal_skill_chatbot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rabongHan/meal_skill_chatbot/issues"
+  },
+  "homepage": "https://github.com/rabongHan/meal_skill_chatbot#readme",
+  "description": ""
 }
