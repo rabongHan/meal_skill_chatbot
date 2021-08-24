@@ -116,18 +116,11 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   
   //mobilechecking
   if(mobileChecking) {
-    var userStudentNum = temp2.substring(23,28);
+    var userStudentNum = temp2.substring(23,29);
   } else {
-    var userStudentNum = temp2.substring(23,28);
+    var userStudentNum = temp2.substring(23,29);
   }
   
-  //숫자인지 여부는 챗봇에서 판단, 5자리 여부는 코딩에서 판단 
-  if(userStudentNum.length == 5) {
-    userDB[userId] = userStudentNum; // studentNum 저장  
-    var extra_text = "학번이 저장되었습니다.";
-  } else {
-    var extra_text = "학번이 없습니다";
-  }
 
   console.log(req.body);
 
