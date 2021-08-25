@@ -172,14 +172,14 @@ apiRouter.post('/calladding', async function(req,res) {
 // 학번 수정 챗봇 코드
 apiRouter.post('/changeStudentNum', async function(req,res) {
   const userId = req.body.userRequest.user.id; //kakao 식별자
-  const temp_2 = req.body.action.params; //params로 학번 담긴 params 전부 받아옴 {"number":"{\"amount\": 30324, \"unit\": null}"}
+  const temp_2 = req.body.action.params; //params로 학번 담긴 params 전부 받아옴
   const temp_2_2 = JSON.stringify(temp_2); //[object object] --> string
   
   //mobilechecking
   if(mobileChecking) {
-    var userStudentNum_revised = temp_2_2.substring(21,26);
+    var userStudentNum_revised = temp_2_2.substring(23,29);
   } else {
-    var userStudentNum_revised = temp_2_2.substring(21,26);
+    var userStudentNum_revised = temp_2_2.substring(23,29);
   }
   
   //학번이 등록 안된 경우
