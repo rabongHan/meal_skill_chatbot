@@ -214,7 +214,32 @@ apiRouter.post('/changeStudentNum', async function(req,res) {
   };
   res.json(responseBody)
 });
+var student_timetable = {"33" : {"1교시": "국어"}}
 
+// 시간표 챗봇 코드 
+apiRouter.post('/studenttimetable', async function(req,res) {
+  const userId = req.body.userRequest.user.id; //kakao 식별자
+
+  const temp_student_num = userDB[userId];
+  const cut_student_num = temp_student_num.substring(0) + temp_student_num.substring(2);
+  const timetable_printing = JSON.stringify(student_timetable[cut_student_num]);
+
+  console.log(req.body);
+
+  const responseBody = {
+    version: "2.0",
+    template: {
+      outputs: [
+        {
+          basicCard: {
+            description: timetable_printing
+          }
+        }
+      ] 
+    }
+  };
+  res.json(responseBody)
+});
 
 //block ID checking 챗봇 코드
 apiRouter.post('/blockId', async function(req,res) {
