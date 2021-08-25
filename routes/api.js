@@ -219,10 +219,7 @@ apiRouter.post('/changeStudentNum', async function(req,res) {
 apiRouter.post('/studenttimetable', async function(req,res) {
   const userId = req.body.userRequest.user.id; //kakao 식별자
   const student_timetable = {
-    "33" : {"1교시" : "국어", "2교시": "수학"},
-    " 33" : "1",
-    // "33 " : "2",
-    // "3 3" : "3",
+    " 33" : {"1교시" : "국어", "2교시": "수학"},
   };
   const temp_student_num = userDB[userId];
   const cut_student_num = temp_student_num.substring(0,2) + temp_student_num.substring(3,4);
@@ -236,7 +233,7 @@ apiRouter.post('/studenttimetable', async function(req,res) {
       outputs: [
         {
           simpleText: {
-            text: cut_student_num in student_timetable
+            text: timetable_printing
           }
         }
       ] 
