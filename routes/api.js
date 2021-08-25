@@ -177,9 +177,9 @@ apiRouter.post('/changeStudentNum', async function(req,res) {
   
   //mobilechecking
   if(mobileChecking) {
-    var userStudentNum_revised = temp_2_2.substring(21,27);
+    var userStudentNum_revised = temp_2_2.substring(21,26);
   } else {
-    var userStudentNum_revised = temp_2_2.substring(21,27);
+    var userStudentNum_revised = temp_2_2.substring(21,26);
   }
   
   //학번이 등록 안된 경우
