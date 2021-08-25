@@ -233,7 +233,7 @@ apiRouter.post('/studenttimetable', async function(req,res) {
       outputs: [
         {
           simpleText: {
-            text: checking_example 
+            text: String(Object.keys(student_timetable)[0]) 
           }
         }
       ] 
