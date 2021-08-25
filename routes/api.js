@@ -220,15 +220,15 @@ apiRouter.post('/studenttimetable', async function(req,res) {
   const userId = req.body.userRequest.user.id; //kakao 식별자
   const student_timetable = {
     "33" : {"1교시" : "국어", "2교시": "수학"},
-    " 33" : "1",
-    "33 " : "2",
-    "3 3" : "3",
+    // " 33" : "1",
+    // "33 " : "2",
+    // "3 3" : "3",
     "\"33": "4"
   };
   const temp_student_num = userDB[userId];
   const cut_student_num = temp_student_num.substring(0,2) + temp_student_num.substring(3,4);
   const timetable_printing = JSON.stringify(student_timetable[cut_student_num]);
-  const checking_example = String(cut_student_num) == String(Object.keys(student_timetable)[0])
+  
   console.log(req.body);
 
   const responseBody = {
