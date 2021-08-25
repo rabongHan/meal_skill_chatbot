@@ -226,7 +226,7 @@ apiRouter.post('/studenttimetable', async function(req,res) {
 
   const temp_student_num = userDB[userId];
   const cut_student_num = temp_student_num.substring(0,1) + temp_student_num.substring(2,3);
-  const timetable_printing = JSON.stringify(student_timetable.get(cut_student_num));
+  const timetable_printing = student_timetable.get(cut_student_num);
 
   console.log(req.body);
 
