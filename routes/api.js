@@ -121,7 +121,13 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     var userStudentNum = temp2.substring(23,29);
   }
   
-  userDB[userId] = userStudentNum; //userDB에 학번 담기 
+  if(userDB[userId]) {
+    var extra_text2 = `${userDB[userId]} 로 학번이 이미 등록되어 있습니다`
+  } else {
+    userDB[userId] = userStudentNum; //userDB에 학번 담기 
+    var extra_text2 = `${userStudentNum} 학번이 등록되었습니다.` 
+  }
+
 
   console.log(req.body);
 
@@ -131,7 +137,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       outputs: [
         {
           basicCard: {
-            description: `${userStudentNum} 학번이 등록되었습니다.` 
+            description: extra_text2
           }
         }
       ] 
@@ -149,7 +155,7 @@ apiRouter.post('/calladding', async function(req,res) {
       outputs: [
         {
           simpleText: {
-            text: "아래 버튼을 눌러 학번을 등록해주세요"
+            text: "아래 버튼을 눌러 학번을 등록하거나 수정해주세요"
           }
         }
       ],
