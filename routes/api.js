@@ -234,7 +234,7 @@ apiRouter.post('/studenttimetable', async function(req,res) {
       outputs: [
         {
           simpleText: {
-            text: timetable_printing
+            text: cut_student_num + `${typeof(cut_student_num)} ${typeof(Object.keys(student_timetable)[0])}`
           }
         }
       ] 
