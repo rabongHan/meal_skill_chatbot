@@ -222,7 +222,7 @@ apiRouter.post('/studenttimetable', async function(req,res) {
     "33" : {"1교시" : "국어", "2교시": "수학"}
   };
   const temp_student_num = userDB[userId];
-  const cut_student_num = temp_student_num.substring(0,1) + temp_student_num.substring(2,3);
+  const cut_student_num = temp_student_num.substring(0,2) + temp_student_num.substring(2,3);
   const timetable_printing = student_timetable[cut_student_num];
 
   console.log(req.body);
