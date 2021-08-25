@@ -218,12 +218,23 @@ apiRouter.post('/changeStudentNum', async function(req,res) {
 // 시간표 챗봇 코드 
 apiRouter.post('/studenttimetable', async function(req,res) {
   const userId = req.body.userRequest.user.id; //kakao 식별자
+  const todaydate2 = new Date();
+  const today_day_2 = todaydate2.getDay(); //0~6 > 일~토 ; 0:일 / 1:월 / 2:화 / 3:수 / 4:목 / 5:금 / 6:토
+
   const student_timetable = {
-    " 33" : {"1교시" : "국어", "2교시": "수학"},
+    " 33" : {
+      "0" : "오늘은 수업이 없습니다", 
+      "1": {"1교시" : "국어", "2교시" : "사회"},
+      "2": {"1교시" : "국어1", "2교시" : "사회1"},
+      "3": {"1교시" : "국어2", "2교시" : "사회2"},
+      "4": {"1교시" : "국어3", "2교시" : "사회3"},
+      "5": {"1교시" : "국어4", "2교시" : "사회4"},
+      "6": {"1교시" : "국어5", "2교시" : "사회5"},
+    }
   };
   const temp_student_num = userDB[userId];
   const cut_student_num = temp_student_num.substring(0,2) + temp_student_num.substring(3,4);
-  const timetable_printing = JSON.stringify(student_timetable[cut_student_num]);
+  const timetable_printing = JSON.stringify(student_timetable[cut_student_num][today_day_2]);
   
   console.log(req.body);
 
