@@ -231,8 +231,8 @@ apiRouter.post('/studenttimetable', async function(req,res) {
     template: {
       outputs: [
         {
-          basicCard: {
-            description: timetable_printing
+          simpleText: {
+            text: cut_student_num
           }
         }
       ] 
