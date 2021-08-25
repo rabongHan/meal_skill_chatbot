@@ -221,7 +221,7 @@ apiRouter.post('/studenttimetable', async function(req,res) {
   const userId = req.body.userRequest.user.id; //kakao 식별자
 
   const temp_student_num = userDB[userId];
-  const cut_student_num = temp_student_num.substring(0) + temp_student_num.substring(2);
+  const cut_student_num = temp_student_num.substring(0,1) + temp_student_num.substring(2,3);
   const timetable_printing = JSON.stringify(student_timetable[cut_student_num]);
 
   console.log(req.body);
@@ -232,7 +232,7 @@ apiRouter.post('/studenttimetable', async function(req,res) {
       outputs: [
         {
           simpleText: {
-            text: cut_student_num
+            text: timetable_printing
           }
         }
       ] 
