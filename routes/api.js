@@ -121,6 +121,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     var userStudentNum = temp2.substring(23,29);
   }
   
+  userDB[userId] = userStudentNum; //userDB에 학번 담기 
 
   console.log(req.body);
 
@@ -138,7 +139,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   };
   res.json(responseBody)
 });
-// 학번 등록 블록 call 코드
+// 학번 등록수정 블록 call 챗봇 코드
 apiRouter.post('/calladding', async function(req,res) {
   console.log(req.body);
 
@@ -157,6 +158,11 @@ apiRouter.post('/calladding', async function(req,res) {
           action: "block",
           label: "학번 등록",
           blockId: "6124baf3c67cf70587a192c7"
+        },
+        {
+          action: "block",
+          label: "학번 수정",
+          blockId: "6125e0b679c93c12d248f78b"
         }
       ] 
     }
@@ -164,7 +170,44 @@ apiRouter.post('/calladding', async function(req,res) {
   res.json(responseBody)
 });
 // 학번 수정 챗봇 코드
+apiRouter.post('/changeStudentNum', async function(req,res) {
+  const userId = req.body.userRequest.user.id; //kakao 식별자
+  const temp_2 = req.body.action.params; //params로 학번 담긴 params 전부 받아옴 {"number":"{\"amount\": 30324, \"unit\": null}"}
+  const temp_2_2 = JSON.stringify(temp_2); //[object object] --> string
+  
+  //mobilechecking
+  if(mobileChecking) {
+    var userStudentNum_revised = temp_2_2.substring(23,29);
+  } else {
+    var userStudentNum_revised = temp_2_2.substring(23,29);
+  }
+  
+  //학번이 등록 안된 경우
+  if(!userDB[userId]) {
+    var extra_text = "학번이 등록되지 않았습니다."
+  } else if(userDB[userId] == userStudentNum_revised) { //수정하려는 학번과 기존 학번이 같은 경우 
+    var extra_text = "등록된 학번과 같은 학번입니다."
+  } else {
+    userDB[userId] = userStudentNum_revised;
+    var extra_text = `${userStudentNum_revised} 학번으로 수정되었습니다.`
+  }
 
+  console.log(req.body);
+
+  const responseBody = {
+    version: "2.0",
+    template: {
+      outputs: [
+        {
+          basicCard: {
+            description: extra_text
+          }
+        }
+      ] 
+    }
+  };
+  res.json(responseBody)
+});
 
 
 //block ID checking 챗봇 코드
