@@ -220,8 +220,10 @@ apiRouter.post('/studenttimetable', async function(req,res) {
   const userId = req.body.userRequest.user.id; //kakao 식별자
   const todaydate2 = new Date();
   const today_day_2 = todaydate2.getDay(); //0~6 > 일~토 ; 0:일 / 1:월 / 2:화 / 3:수 / 4:목 / 5:금 / 6:토
+  const arrDayStr = ['일','월','화','수','목','금','토'];
 
-  const student_timetable = {
+  //시간표 딕셔너리 
+  const student_timetable = { 
     " 11" : {
       "0" : "오늘은 수업이 없습니다", 
       "1": {"1교시" : "자율", "2교시" : "통합과학", "3교시" : "국어(조영현)", "4교시" : "경제/사회문화/거시경제/AP미국정치/AP세계사", "5교시" : "수학(국제/국내)", "6교시" : "태권도", "7교시" : "통합사회", "8교시": "국어(이도윤)"},
@@ -333,15 +335,18 @@ apiRouter.post('/studenttimetable', async function(req,res) {
   };
 
   const temp_student_num = userDB[userId];
-  const cut_student_num = temp_student_num.substring(0,2) + temp_student_num.substring(3,4);
+  const cut_student_num = temp_student_num.substring(0,2) + temp_student_num.substring(3,4); // 30324 --> " 33"
 
-  if(cut_student_num in student_timetable) {
+  //시간표 상 key(=존재 학년)과 학번이 일치하는지, 즉 있는 학년인지 판단  
+  if(!userDB[userId]) {
+    var timetable_printing_final = "먼저 학번을 등록해주세요."
+  } else if(cut_student_num in student_timetable) {
     const timetable_printing_1 = JSON.stringify(student_timetable[cut_student_num][today_day_2]);
     const timetable_printing_2 = timetable_printing_1.replace(/\"/gi, "");
     const timetable_printing_3 = timetable_printing_2.replace("{", "");
     const timetable_printing_4 = timetable_printing_3.replace("}", "");
     const timetable_printing_5 = timetable_printing_4.replace(/:/gi, ": ");
-    var timetable_printing_final = timetable_printing_5.replace(/,/gi, "\n");
+    var timetable_printing_final = `${arrDayStr[today_day_2]}요일 ${temp_student_num.substring(0,2)}반 ${temp_student_num.substring(3,4)}시간표\n` + timetable_printing_5.replace(/,/gi, "\n");
   } else {
     var timetable_printing_final = `현재 등록 학번: ${temp_student_num} \n이 학번에 해당하는 시간표를 찾을 수 없습니다.`
   }
