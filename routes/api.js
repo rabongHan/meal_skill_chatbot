@@ -331,14 +331,21 @@ apiRouter.post('/studenttimetable', async function(req,res) {
       "6": "오늘은 수업이 없습니다", 
     }
   };
+
   const temp_student_num = userDB[userId];
   const cut_student_num = temp_student_num.substring(0,2) + temp_student_num.substring(3,4);
-  const timetable_printing_1 = JSON.stringify(student_timetable[cut_student_num][today_day_2]);
-  const timetable_printing_2 = timetable_printing_1.replace(/\"/gi, "");
-  const timetable_printing_3 = timetable_printing_2.replace("{", "");
-  const timetable_printing_4 = timetable_printing_3.replace("}", "");
-  const timetable_printing_5 = timetable_printing_4.replace(/:/gi, ": ");
-  const timetable_printing_final = timetable_printing_5.replace(/,/gi, "\n");
+
+  if(cut_student_num in Object.keys(student_timetable)) {
+    const timetable_printing_1 = JSON.stringify(student_timetable[cut_student_num][today_day_2]);
+    const timetable_printing_2 = timetable_printing_1.replace(/\"/gi, "");
+    const timetable_printing_3 = timetable_printing_2.replace("{", "");
+    const timetable_printing_4 = timetable_printing_3.replace("}", "");
+    const timetable_printing_5 = timetable_printing_4.replace(/:/gi, ": ");
+    var timetable_printing_final = timetable_printing_5.replace(/,/gi, "\n");
+  } else {
+    var timetable_printing_final = `${temp_student_num} 이 학번에 해당하는 시간표를 찾을 수 없습니다.`
+  }
+
 
 
   console.log(req.body);
