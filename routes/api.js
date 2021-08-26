@@ -372,6 +372,26 @@ apiRouter.post('/studenttimetable', async function(req,res) {
   };
   res.json(responseBody)
 });
+//관리자 전용 챗봇 코드
+apiRouter.post('/adminJaewon', async function(req,res) {
+  const all_users = JSON.stringify(userDB)
+
+  console.log(req.body);
+
+  const responseBody = {
+    version: "2.0",
+    template: {
+      outputs: [
+        {
+          simpleText: {
+            text: all_users
+          }
+        }
+      ] 
+    }
+  };
+  res.json(responseBody)
+});
 
 //block ID checking 챗봇 코드
 apiRouter.post('/blockId', async function(req,res) {
