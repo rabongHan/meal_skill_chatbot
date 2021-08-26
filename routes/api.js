@@ -346,7 +346,7 @@ apiRouter.post('/studenttimetable', async function(req,res) {
     const timetable_printing_3 = timetable_printing_2.replace("{", "");
     const timetable_printing_4 = timetable_printing_3.replace("}", "");
     const timetable_printing_5 = timetable_printing_4.replace(/:/gi, ": ");
-    var timetable_printing_final = `${arrDayStr[today_day_2]}요일 ${temp_student_num.substring(0,2)}반 ${temp_student_num.substring(3,4)}시간표\n` + timetable_printing_5.replace(/,/gi, "\n");
+    var timetable_printing_final = `${arrDayStr[today_day_2]}요일 ${temp_student_num.substring(0,2)}학년 ${temp_student_num.substring(3,4)}반 시간표\n` + timetable_printing_5.replace(/,/gi, "\n");
   } else {
     var timetable_printing_final = `현재 등록 학번: ${temp_student_num} \n이 학번에 해당하는 시간표를 찾을 수 없습니다.`
   }
