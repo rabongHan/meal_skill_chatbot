@@ -334,13 +334,14 @@ apiRouter.post('/studenttimetable', async function(req,res) {
     },
   };
 
-  const temp_student_num = userDB[userId];
-  const cut_student_num = temp_student_num.substring(0,2) + temp_student_num.substring(3,4); // 30324 --> " 33"
+
 
   //시간표 상 key(=존재 학년)과 학번이 일치하는지, 즉 있는 학년인지 판단  
   if(!userDB[userId]) {
     var timetable_printing_final = "먼저 학번을 등록해주세요."
   } else if(cut_student_num in student_timetable) {
+    const temp_student_num = userDB[userId];
+    const cut_student_num = temp_student_num.substring(0,2) + temp_student_num.substring(3,4); // 30324 --> " 33"
     const timetable_printing_1 = JSON.stringify(student_timetable[cut_student_num][today_day_2]);
     const timetable_printing_2 = timetable_printing_1.replace(/\"/gi, "");
     const timetable_printing_3 = timetable_printing_2.replace("{", "");
@@ -348,6 +349,8 @@ apiRouter.post('/studenttimetable', async function(req,res) {
     const timetable_printing_5 = timetable_printing_4.replace(/:/gi, ": ");
     var timetable_printing_final = `${arrDayStr[today_day_2]}요일 ${temp_student_num.substring(0,2)}학년 ${temp_student_num.substring(3,4)}반 시간표\n` + timetable_printing_5.replace(/,/gi, "\n");
   } else {
+    const temp_student_num = userDB[userId];
+    const cut_student_num = temp_student_num.substring(0,2) + temp_student_num.substring(3,4); // 30324 --> " 33"
     var timetable_printing_final = `현재 등록 학번: ${temp_student_num} \n이 학번에 해당하는 시간표를 찾을 수 없습니다.`
   }
 
