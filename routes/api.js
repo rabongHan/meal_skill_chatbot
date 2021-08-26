@@ -337,7 +337,8 @@ apiRouter.post('/studenttimetable', async function(req,res) {
   const timetable_printing_2 = timetable_printing_1.replace(/\"/gi, "");
   const timetable_printing_3 = timetable_printing_2.replace("{", "");
   const timetable_printing_4 = timetable_printing_3.replace("}", "");
-  const timetable_printing_final = timetable_printing_4.replace(/,/gi, "\n");
+  const timetable_printing_5 = timetable_printing_4.replace(/:/gi, ": ");
+  const timetable_printing_final = timetable_printing_5.replace(/,/gi, "\n");
 
 
   console.log(req.body);
