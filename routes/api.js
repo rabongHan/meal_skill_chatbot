@@ -372,7 +372,7 @@ apiRouter.post('/studenttimetable', async function(req,res) {
 });
 
 // 내일 시간표 챗봇 코드 
-apiRouter.post('/studenttimetable', async function(req,res) {
+apiRouter.post('/studenttimetable_tomorrow', async function(req,res) {
   const userId = req.body.userRequest.user.id; //kakao 식별자
   const tomorrowdate3 = new Date(todaydate.setDate(todaydate.getDate() + 1));
   const tomorrow_day_3 = tomorrowdate3.getDay(); //0~6 > 일~토 ; 0:일 / 1:월 / 2:화 / 3:수 / 4:목 / 5:금 / 6:토
