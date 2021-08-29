@@ -494,7 +494,7 @@ apiRouter.post('/studenttimetable_tomorrow', async function(req,res) {
 
   //시간표 상 key(=존재 학년)과 학번이 일치하는지, 즉 있는 학년인지 판단  
   if(!userDB[userId]) {
-    var timetable_printing_final = "먼저 학번을 등록해주세요."
+    var timetable_printing_final2 = "먼저 학번을 등록해주세요."
   } else if(userDB[userId].substring(0,2) + userDB[userId].substring(3,4) in student_timetable) {
     const temp_student_num = userDB[userId];
     const cut_student_num = temp_student_num.substring(0,2) + temp_student_num.substring(3,4); // 30324 --> " 33"
@@ -503,11 +503,11 @@ apiRouter.post('/studenttimetable_tomorrow', async function(req,res) {
     const timetable_printing_3 = timetable_printing_2.replace("{", "");
     const timetable_printing_4 = timetable_printing_3.replace("}", "");
     const timetable_printing_5 = timetable_printing_4.replace(/:/gi, ": ");
-    var timetable_printing_final = `${arrDayStr[tomorrow_day_3]}요일 ${temp_student_num.substring(0,2)}학년 ${temp_student_num.substring(3,4)}반 시간표\n` + timetable_printing_5.replace(/,/gi, "\n");
+    var timetable_printing_final2 = `${arrDayStr[tomorrow_day_3]}요일 ${temp_student_num.substring(0,2)}학년 ${temp_student_num.substring(3,4)}반 시간표\n` + timetable_printing_5.replace(/,/gi, "\n");
   } else {
     const temp_student_num = userDB[userId];
     const cut_student_num = temp_student_num.substring(0,2) + temp_student_num.substring(3,4); // 30324 --> " 33"
-    var timetable_printing_final = `현재 등록 학번: ${temp_student_num} \n이 학번에 해당하는 시간표를 찾을 수 없습니다.`
+    var timetable_printing_final2 = `현재 등록 학번: ${temp_student_num} \n이 학번에 해당하는 시간표를 찾을 수 없습니다.`
   }
 
 
@@ -520,7 +520,7 @@ apiRouter.post('/studenttimetable_tomorrow', async function(req,res) {
       outputs: [
         {
           simpleText: {
-            text: timetable_printing_final
+            text: timetable_printing_final2
           }
         }
       ] 
