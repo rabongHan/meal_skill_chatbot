@@ -131,12 +131,12 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       username,
       studentid
     ) VALUES (
-      @username,
-      @studentid 
-  `, {
-    username: userId,
-    studentid: userStudentNum
-  })
+      ?,
+      ?
+  `, [
+    userId,
+    userStudentNum
+  ])
   // const checking = await database.query(`SELECT COUNT(*) FROM board WHERE username = '$userId'`);
 
   // if(checking == 0) {
