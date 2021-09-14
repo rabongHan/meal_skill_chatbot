@@ -126,27 +126,38 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   } else {
     var userStudentNum = temp2.substring(23,29);
   }
-  
-  const checking = await database.query(`SELECT COUNT(*) FROM board WHERE username = '$userStudentNum'`);
+  await database.query(`
+    INSERT INTO board(
+      username,
+      studentId
+    ) VALUES (
+      @username,
+      @studentId 
+  `, {
+    username: userId,
+    studentId: userStudentNum
+  })
+  // const checking = await database.query(`SELECT COUNT(*) FROM board WHERE username = '$userId'`);
 
-  if(checking == 0) {
-    await database.query(`
-      INSERT INTO board(
-        username,
-        studentId
-      ) VALUES (
-        @username,
-        @studentId
-      )
-    `, {
-      username: userId,
-      studentId: userStudentNum
-    })
+  // if(checking == 0) {
+  //   await database.query(`
+  //     INSERT INTO board(
+  //       username,
+  //       studentId
+  //     ) VALUES (
+  //       @username,
+  //       @studentId
+  //     )
+  //   `, {
+  //     username: userId,
+  //     studentId: userStudentNum
+  //   })
 
-    var extra_text2 = `${userStudentNum} 학번 등록`
-  } else {
-    var extra_text2 = `${userDB[userId]} 로 학번이 이미 등록되어 있습니다`
-  }
+  //   var extra_text2 = `${userStudentNum} 학번 등록`
+  // } else {
+  //   var extra_text2 = `${userDB[userId]} 로 학번이 이미 등록되어 있습니다`
+  // }
+
   // if(userDB[userId]) {
   //   var extra_text2 = `${userDB[userId]} 로 학번이 이미 등록되어 있습니다`
   // } else {
@@ -162,7 +173,8 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       outputs: [
         {
           basicCard: {
-            description: extra_text2
+            // description: extra_text2
+            description: "succeed"
           }
         }
       ] 
