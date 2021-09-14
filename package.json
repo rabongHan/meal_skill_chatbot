@@ -11,13 +11,14 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "modernizr": "^3.11.8",
     "mongoose": "^5.13.7",
     "morgan": "^1.10.0",
-    "school-kr": "^3.1.2",
-    "modernizr": "^3.11.8"
+    "prohairesis": "^1.2.5",
+    "school-kr": "^3.1.2"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rabongHan/meal_skill_chatbot.git"

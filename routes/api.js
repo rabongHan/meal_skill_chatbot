@@ -1,5 +1,11 @@
 const apiRouter = require("express").Router();
 const modernizr = require("modernizr"); //mobile checking
+// for db 
+const {Prohairesis} = require("prohairesis"); 
+const env = require("./env");
+const database = new Prohairesis(env.CLEARDB_DATABASE_URL);
+// 
+
 //mobile checking function
 function mobileChecking() {
   if(modernizr.touchevents) {
@@ -107,7 +113,7 @@ apiRouter.post('/todaymeal', async function(req,res) {
   res.json(responseBody)
 });
 
-var userDB = {}; //DataBase for student number 
+// var userDB = {}; //DataBase for student number 
 //학번 등록 챗봇 코드
 apiRouter.post('/addStudentNum', async function(req,res) {
   const userId = req.body.userRequest.user.id; //kakao 식별자
@@ -121,13 +127,32 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     var userStudentNum = temp2.substring(23,29);
   }
   
-  if(userDB[userId]) {
-    var extra_text2 = `${userDB[userId]} 로 학번이 이미 등록되어 있습니다`
-  } else {
-    userDB[userId] = userStudentNum; //userDB에 학번 담기 
-    var extra_text2 = `${userStudentNum} 학번이 등록되었습니다.` 
-  }
+  const checking = await database.query(`SELECT COUNT(*) FROM board where username = @username`, {username: userId});
 
+  if(checking == 0) {
+    await database.query(`
+      INSERT INTO board(
+        username,
+        studentId
+      ) VALUES (
+        @username,
+        @studentId
+      )
+    `, {
+      username: userId,
+      studentId: userStudentNum
+    })
+
+    var extra_text2 = `${userStudentNum} 학번 등록`
+  } else {
+    var extra_text2 = `${userDB[userId]} 로 학번이 이미 등록되어 있습니다`
+  }
+  // if(userDB[userId]) {
+  //   var extra_text2 = `${userDB[userId]} 로 학번이 이미 등록되어 있습니다`
+  // } else {
+  //   userDB[userId] = userStudentNum; //userDB에 학번 담기 
+  //   var extra_text2 = `${userStudentNum} 학번이 등록되었습니다.` 
+  // }
 
   console.log(req.body);
 
@@ -145,6 +170,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   };
   res.json(responseBody)
 });
+
 // 학번 등록수정 블록 call 챗봇 코드
 apiRouter.post('/calladding', async function(req,res) {
   console.log(req.body);
@@ -175,6 +201,7 @@ apiRouter.post('/calladding', async function(req,res) {
   };
   res.json(responseBody)
 });
+
 // 학번 수정 챗봇 코드
 apiRouter.post('/changeStudentNum', async function(req,res) {
   const userId = req.body.userRequest.user.id; //kakao 식별자
@@ -188,15 +215,24 @@ apiRouter.post('/changeStudentNum', async function(req,res) {
     var userStudentNum_revised = temp_2_2.substring(23,29);
   }
   
+  const checking = await database.query(`SELECT COUNT(*) FROM board WHERE username = '$userId'`);
   //학번이 등록 안된 경우
-  if(!userDB[userId]) {
+  if(checking == 0) {
     var extra_text = "학번이 등록되지 않았습니다."
-  } else if(userDB[userId] == userStudentNum_revised) { //수정하려는 학번과 기존 학번이 같은 경우 
-    var extra_text = "등록된 학번과 같은 학번입니다."
   } else {
-    userDB[userId] = userStudentNum_revised;
-    var extra_text = `${userStudentNum_revised} 학번으로 수정되었습니다.`
+      await database.query(`
+        UPDATE board SET studentId='$userStudentNum_revised' WHERE username='$userId'
+      `)
+      var extra_text = `${userStudentNum_revised} 학번으로 수정되었습니다.`  
   }
+  // if(!userDB[userId]) {
+  //   var extra_text = "학번이 등록되지 않았습니다."
+  // } else if(userDB[userId] == userStudentNum_revised) { //수정하려는 학번과 기존 학번이 같은 경우 
+  //   var extra_text = "등록된 학번과 같은 학번입니다."
+  // } else {
+  //   userDB[userId] = userStudentNum_revised;
+  //   var extra_text = `${userStudentNum_revised} 학번으로 수정되었습니다.`
+  // }
 
   console.log(req.body);
 
