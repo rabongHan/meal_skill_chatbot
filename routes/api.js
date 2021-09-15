@@ -143,13 +143,15 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     
   // });
   var tempor = "";
-  // var checking = `SELECT EXISTS (SELECT * FROM Board WHERE username='${userId}' LIMIT 1) AS SUCCESS`;
-  var checking = "SELECT * FROM Board"
-  connection_sql.query(checking, function(err, result, fields) {
-    if(err) throw error;
-    tempor = result;
-  })
- 
+  connection_sql.connect(function(err) {
+    if(err) throw err;
+    var checking = `SELECT EXISTS (SELECT * FROM Board WHERE username='${userId}' LIMIT 1) AS SUCCESS`;
+    connection_sql.query(checking, function(err, result, fields) {
+      if(err) throw error;
+      tempor = result;
+    });
+  });
+  
   if(tempor == 0) {
     var first_sql_conn = 'INSERT INTO Board (username, studentid)  VALUES (?,?)';
     connection_sql.query(first_sql_conn, [userId, userStudentNum], function(err, results) {
