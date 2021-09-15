@@ -143,13 +143,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     
   // });
 
-  const checking = connection_sql.query(`
-    SELECT
-      CASE
-        WHEN EXISTS( SELECT 1 FROM theTable WHERE theColumn LIKE 'theValue%' )
-          THEN 1 
-        ELSE 0
-      END`);
+  const checking = connection_sql.query(`SELEC EXISTS (SELECT * from Board WHERE username=${userId} LIMIT 1) AS SUCCESS`);
   const checking3 = [];
   for (output in checking) {
     checking3.push(JSON.stringify(output));
