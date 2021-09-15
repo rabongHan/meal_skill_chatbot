@@ -131,11 +131,12 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   } else {
     var userStudentNum = temp2.substring(23,29);
   }
-  var final_text;
+  var final_text = "";
 
   var first_sql_conn = 'INSERT INTO Board (username, studentid)  VALUES (?,?)';
   connection_sql.query(first_sql_conn, [userId, userStudentNum], function(err, results) {
     if(err) {
+      console.log(err); 
       final_text = '학번이 이미 등록되어 있습니다'
     }
     else {
