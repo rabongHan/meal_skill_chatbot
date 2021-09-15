@@ -135,7 +135,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       ) VALUES (
         ${userId}
         ${userStudentNum}
-    `)
+    `);
     extra_text2 = "oko"
   } catch (e) {
     extra_text2 = "fail"
