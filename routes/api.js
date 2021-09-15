@@ -136,7 +136,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   var first_sql_conn = 'INSERT INTO Board (username, studentid)  VALUES (?,?)';
   connection_sql.query(first_sql_conn, [userId, userStudentNum], function(err, results) {
     if(err) {
-      final_text = `${userDB[userId]} 로 학번이 이미 등록되어 있습니다`
+      final_text = '학번이 이미 등록되어 있습니다'
     }
     else {
       final_text = `${userStudentNum} 학번 등록하였습니다.`
