@@ -154,7 +154,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   var tempor = 0;
   var heee = [];
   
-  connection_sql.query(`SELECT * FROM Board`, function(err, results) {
+  connection_sql.query("SELECT * FROM Board", function(err, results) {
     setValue(results);
   });
   function setValue(value) {
