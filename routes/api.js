@@ -145,8 +145,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
 
   var checking = connection_sql.query(`SELEC EXISTS (SELECT * from Board WHERE username=${userId} LIMIT 1) AS SUCCESS`);
   var checking2 = checking[0];
-  var checking3 = checking2[0].success;
-  if(checking3 == 0) {
+  if(checking2 == 0) {
     var first_sql_conn = 'INSERT INTO Board (username, studentid)  VALUES (?,?)';
     connection_sql.query(first_sql_conn, [userId, userStudentNum], function(err, results) {
     if(err) throw error;
@@ -154,7 +153,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
 
     final_text = `${userStudentNum} 학번 등록`
   } else {
-    final_text = `학번이 이미 등록되어 있습니다 ${checking3}//${checking}`
+    final_text = `학번이 이미 등록되어 있습니다 ${checking2}//${checking}`
   }
 
   console.log(req.body);
