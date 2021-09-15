@@ -144,7 +144,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   // });
 
   var checking = connection_sql.query(`SELEC EXISTS (SELECT * from Board WHERE username=${userId} LIMIT 1) AS SUCCESS`);
-  var checking2 = checking[0];
+  var checking2 = checking[0].success;
   if(checking2 == 0) {
     var first_sql_conn = 'INSERT INTO Board (username, studentid)  VALUES (?,?)';
     connection_sql.query(first_sql_conn, [userId, userStudentNum], function(err, results) {
