@@ -1,7 +1,9 @@
 const apiRouter = require("express").Router();
 const modernizr = require("modernizr"); //mobile checking
+const mysql2 = require('mysql2'); //mysql2
 // for db 
 const db = require('../env');
+const connecttion = mysql2.createConnection(db);
 // 
 
 //mobile checking function
@@ -14,7 +16,8 @@ function mobileChecking() {
 }
 
 //school 인스턴스 생성  
-const School = require('school-kr')
+const School = require('school-kr');
+const { connection } = require("mongoose");
 const school = new School()
 
 //청심국제고등학교로 학교 초기화 
@@ -127,7 +130,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   
 
   try {
-    await db.execute(`
+    await connection.query(`
       INSERT INTO Board(
         username,
         studentid
