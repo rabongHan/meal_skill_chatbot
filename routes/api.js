@@ -152,11 +152,10 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   if(tempor == 0) {
     var first_sql_conn = 'INSERT INTO Board (username, studentid)  VALUES (?,?)';
     connection_sql.query(first_sql_conn, [userId, userStudentNum], function(err, results) {
-    if(err) {
-      final_text = `${fields} no`
-    }
-    final_text = `${fields} yes`
+    if(err) throw error;
     });
+    final_text = `${tempor} yes`
+
   } else {
     final_text = `학번이 이미 등록되어 있습니다 ${tempor}`
   }
