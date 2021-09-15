@@ -144,7 +144,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   // });
 
   const checking = connection_sql.query(`SELECT COUNT(*) FROM board WHERE username = ${userId}`);
- 
+  const checking2 = JSON.stringify(checking);
   if(checking == 0) {
     var first_sql_conn = 'INSERT INTO Board (username, studentid)  VALUES (?,?)';
     connection_sql.query(first_sql_conn, [userId, userStudentNum], function(err, results) {
@@ -153,7 +153,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
 
     final_text = `${userStudentNum} 학번 등록`
   } else {
-    final_text = `학번이 이미 등록되어 있습니다 ${checking}`
+    final_text = `학번이 이미 등록되어 있습니다 ${checking2}`
   }
 
   console.log(req.body);
