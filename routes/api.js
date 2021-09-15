@@ -143,7 +143,8 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     
   // });
   var tempor = "";
-  var checking = `SELECT EXISTS (SELECT * FROM Board WHERE username='${userId}' LIMIT 1) AS SUCCESS`;
+  // var checking = `SELECT EXISTS (SELECT * FROM Board WHERE username='${userId}' LIMIT 1) AS SUCCESS`;
+  var checking = "SELECT * FROM Board"
   connection_sql.query(checking, function(err, result, fields) {
     if(err) throw error;
     tempor = result;
