@@ -145,7 +145,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
 
   const checking = connection_sql.query(`SELECT EXISTS(SELECT * FROM Board WHERE username = ${userId}) as isHava`);
   const checking3 = [];
-  for (output in checking1) {
+  for (output in checking) {
     checking3.push(JSON.stringify(output));
   }
   if(checking == 0) {
