@@ -153,9 +153,10 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   // });
   var tempor = 0;
   var heee = [];
+  
   var ttemp = "SELECT JSON_OBJECT(') FROM Board";
   connection_sql.query(`SELEC * FROM Board`, function(err, results) {
-    heee = results
+    heee = results[0]
   });
   
   if(tempor == 0) {
