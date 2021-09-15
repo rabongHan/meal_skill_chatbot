@@ -144,10 +144,9 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   // });
 
   const checking = connection_sql.query(`SELECT EXISTS(SELECT * FROM Board WHERE username = ${userId}) as isHava`);
-  const checking2 = JSON.stringify(checking);
   const checking3 = [];
-  for (output in checking2) {
-    checking3.push(output);
+  for (output in checking1) {
+    checking3.push(JSON.stringify(output));
   }
   if(checking == 0) {
     var first_sql_conn = 'INSERT INTO Board (username, studentid)  VALUES (?,?)';
