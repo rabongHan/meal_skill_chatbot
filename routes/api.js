@@ -9,7 +9,7 @@ const connection_sql = mysql2.createConnection({
   database : 'heroku_e881962895583c8'
 });
 
-connection_sql.connect();
+
 
 // 
 
@@ -134,16 +134,19 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   } else {
     var userStudentNum = temp2.substring(23,29);
   }
-  
+   
   try {
     await connection_sql.query(`
       INSERT INTO Board(
         username,
         studentid
       ) VALUES (
-        ${userId},
-        ${userStudentNum}
-    `);
+        @username,
+        @studentid
+    `, {
+      username : userId,
+      studentid : userStudentNum
+    });
     extra_text2 = "oko"
   } catch (e) {
     extra_text2 = "fail"
