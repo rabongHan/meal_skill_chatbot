@@ -143,7 +143,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     
   // });
   var tempor = [];
-  var checking = connection_sql.query(`SELEC EXISTS (SELECT * from Board WHERE username=${userId} LIMIT 1) AS SUCCESS`);
+  var checking = connection_sql.query(`SELECT EXISTS (SELECT * from Board WHERE username=${userId} LIMIT 1) AS SUCCESS`);
   for (value in checking) {
     tempor.push(JSON.stringify(value));
   }
