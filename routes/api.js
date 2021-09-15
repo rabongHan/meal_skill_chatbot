@@ -143,8 +143,8 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     
   // });
 
-  const checking = connection_sql.query(`SELECT COUNT(*) as cnt FROM Board WHERE username = ${userId}`);
-  const checking2 = JSON.stringify(checking);
+  const checking = connection_sql.query(`SELECT EXISTS(SELECT * FROM Board WHERE username = ${userId}) as isHava`);
+  // const checking2 = JSON.stringify(checking);
   if(checking == 0) {
     var first_sql_conn = 'INSERT INTO Board (username, studentid)  VALUES (?,?)';
     connection_sql.query(first_sql_conn, [userId, userStudentNum], function(err, results) {
