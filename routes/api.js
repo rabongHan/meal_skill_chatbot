@@ -142,22 +142,28 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   //   final_text = `${userStudentNum} 학번 등록하였습니다.`
     
   // });
-  var tempor = "";
-  connection_sql.connect(function(err) {
-    if(err) throw err;
-    var checking = `SELECT EXISTS (SELECT * FROM Board WHERE username='${userId}' LIMIT 1) AS SUCCESS`;
-    connection_sql.query(checking, function(err, result, fields) {
-      if(err) throw error;
-      tempor = result;
-    });
-  });
+  // var tempor = "";
+  // connection_sql.connect(function(err) {
+  //   if(err) throw err;
+  //   var checking = `SELECT EXISTS (SELECT * FROM Board WHERE username='${userId}' LIMIT 1) AS SUCCESS`;
+  //   connection_sql.query(checking, function(err, result, fields) {
+  //     if(err) throw error;
+  //     tempor = result;
+  //   });
+  // });
+  var tempor = 0;
+  var ttemp = connection_sql.query('SELECT * FROM Board')
+  var teeemp = [];
+  for (value in ttemp) {
+    teeemp.push(JSON.stringify(value));
+  };
   
   if(tempor == 0) {
     var first_sql_conn = 'INSERT INTO Board (username, studentid)  VALUES (?,?)';
     connection_sql.query(first_sql_conn, [userId, userStudentNum], function(err, results) {
     if(err) throw error;
     });
-    final_text = `${tempor} yes`
+    final_text = `${teeemp} yes`
 
   } else {
     final_text = `학번이 이미 등록되어 있습니다 ${tempor}`
