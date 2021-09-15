@@ -126,14 +126,20 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   } else {
     var userStudentNum = temp2.substring(23,29);
   }
-  await database.query(`
-    INSERT INTO Board(
-      username,
-      studentid
-    ) VALUES (
-      ${userId}
-      ${userStudentNum}
-  `)
+  
+  try {
+    await database.query(`
+      INSERT INTO Board(
+        username,
+        studentid
+      ) VALUES (
+        ${userId}
+        ${userStudentNum}
+    `)
+    extra_text2 = "oko"
+  } catch (e) {
+    extra_text2 = "fail"
+  }
   // const checking = await database.query(`SELECT COUNT(*) FROM board WHERE username = '${userId}'`);
 
   // if(checking == 0) {
@@ -170,8 +176,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       outputs: [
         {
           basicCard: {
-            // description: extra_text2
-            description: "succeed"
+            description: extra_text2
           }
         }
       ] 
