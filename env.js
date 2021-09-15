@@ -1,5 +1,21 @@
-require("dotenv").config();
+require('dotenv').config();
+const mysql = require('mysql2');
 
-module.exports = {
-    CLEARDB_DATABASE_URL: process.env.CLEARDB_DATABASE_URL,
-};
+const pool = mysql.createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASSWORD,
+});
+
+let sql = "SELECT * FROM Board;";
+
+// pool.execute(sql, function (err, result) {
+//     if (err) throw err;
+
+//     result.forEach((res) => {
+//         console.log(res.studentid);
+//     });
+// });
+
+module.exports = pool.promise();

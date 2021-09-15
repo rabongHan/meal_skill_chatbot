@@ -1,9 +1,7 @@
 const apiRouter = require("express").Router();
 const modernizr = require("modernizr"); //mobile checking
 // for db 
-const {Prohairesis} = require("prohairesis"); 
-const env = require("../env");
-const database = new Prohairesis(env.CLEARDB_DATABASE_URL);
+const db = require('../env');
 // 
 
 //mobile checking function
@@ -127,14 +125,15 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     var userStudentNum = temp2.substring(23,29);
   }
   
+
   try {
-    await database.query(`
+    await db.execute(`
       INSERT INTO Board(
         username,
         studentid
       ) VALUES (
-        ${userId}
-        ${userStudentNum}
+        '${userId}',
+        '${userStudentNum}'
     `);
     extra_text2 = "oko"
   } catch (e) {
