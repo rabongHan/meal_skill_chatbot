@@ -134,7 +134,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   
   var first_sql_conn = 'INSERT INTO Board (username, studentid)  VALUES (?,?)';
   connection_sql.query(first_sql_conn, [userId, userStudentNum], function(err, results) {
-    if(error) throw error;
+    if(error) console.log("fail");
   });
   // const checking = await database.query(`SELECT COUNT(*) FROM board WHERE username = '${userId}'`);
 
