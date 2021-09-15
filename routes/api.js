@@ -152,18 +152,18 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   //   });
   // });
   var tempor = 0;
-  var ttemp = connection_sql.query('SELECT * FROM Board')
-  var teeemp = [];
-  for (value in ttemp) {
-    teeemp.push(JSON.stringify(value));
-  };
+  var heee = [];
+  var ttemp = "SELECT JSON_OBJECT(') FROM Board";
+  connection_sql.query(`SELEC * FROM Board`, function(err, results) {
+    heee = results
+  });
   
   if(tempor == 0) {
     var first_sql_conn = 'INSERT INTO Board (username, studentid)  VALUES (?,?)';
     connection_sql.query(first_sql_conn, [userId, userStudentNum], function(err, results) {
     if(err) throw error;
     });
-    final_text = `${teeemp} yes`
+    final_text = `${heee} yes`
 
   } else {
     final_text = `학번이 이미 등록되어 있습니다 ${tempor}`
