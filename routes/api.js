@@ -131,10 +131,15 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   } else {
     var userStudentNum = temp2.substring(23,29);
   }
-  
+  var final_text;
   var first_sql_conn = 'INSERT INTO Board (username, studentid)  VALUES (?,?)';
   connection_sql.query(first_sql_conn, [userId, userStudentNum], function(err, results) {
-    if(error) throw error;
+    if(err) {
+      final_text = "실패" 
+    }
+    else {
+      final_text = "${userStudentNum} 학번 등록하였습니다."
+    }
   });
   // const checking = await database.query(`SELECT COUNT(*) FROM board WHERE username = '${userId}'`);
 
@@ -172,7 +177,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       outputs: [
         {
           basicCard: {
-            description: 'final_text'
+            description: final_text
           }
         }
       ] 
