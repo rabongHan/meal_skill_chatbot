@@ -8,9 +8,6 @@ const connection_sql = mysql2.createConnection({
   password : '63ebf715',
   database : 'heroku_e881962895583c8'
 });
-
-
-
 // 
 
 //mobile checking function
@@ -134,20 +131,11 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   } else {
     var userStudentNum = temp2.substring(23,29);
   }
-   
-  try {
-    await connection_sql.query(`
-      INSERT INTO Board(
-        username,
-        studentid
-      ) VALUES (
-        'hello',
-        'hellll'
-    `);
-    extra_text2 = "oko"
-  } catch (e) {
-    extra_text2 = "fail"
-  }
+  
+  var first_sql_conn = 'INSERT INTO Board (username, studentid)  VALUES (?,?)';
+  connection_sql.query(first_sql_conn, [userId, userStudentNum], function(err, results) {
+    if(error) throw error;
+  });
   // const checking = await database.query(`SELECT COUNT(*) FROM board WHERE username = '${userId}'`);
 
   // if(checking == 0) {
@@ -184,7 +172,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       outputs: [
         {
           basicCard: {
-            description: extra_text2
+            description: 'final_text'
           }
         }
       ] 
