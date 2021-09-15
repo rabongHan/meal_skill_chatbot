@@ -154,11 +154,12 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   var tempor = 0;
   var heee = [];
   
-  var ttemp = "SELECT JSON_OBJECT(') FROM Board";
-  connection_sql.query(`SELEC * FROM Board`, function(err, results) {
-    heee = results[0]
+  connection_sql.query(`SELECT * FROM Board`, function(err, results) {
+    setValue(results);
   });
-  
+  function setValue(value) {
+    heee = value;
+  }
   if(tempor == 0) {
     var first_sql_conn = 'INSERT INTO Board (username, studentid)  VALUES (?,?)';
     connection_sql.query(first_sql_conn, [userId, userStudentNum], function(err, results) {
