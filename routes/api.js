@@ -154,7 +154,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     if(err) throw error;
     });
 
-    final_text = `${checking2} // ${JSON.stringify(tempor).substring(200)}  학번 등록`
+    final_text = `${checking2} // ${JSON.stringify(tempor).substring(300)}  학번 등록`
   } else {
     final_text = `학번이 이미 등록되어 있습니다 ${tempor}//${checking}/${checking}`
   }
