@@ -137,7 +137,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       if (err) {
         callback(err);
       }
-      callback(null, await(result));
+      callback(null, result[0]);
     })
   }
 
@@ -145,7 +145,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     if(err) {
       return err;
     } else {
-      return data;
+      return JSON.stringify(data);
     }
   })
 
