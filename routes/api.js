@@ -21,7 +21,7 @@ function mobileChecking() {
 
 //school 인스턴스 생성  
 const School = require('school-kr');
-const { connection, set } = require("mongoose");
+const { connection, set, ConnectionStates } = require("mongoose");
 const school = new School()
 
 //청심국제고등학교로 학교 초기화 
@@ -132,27 +132,18 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     var userStudentNum = temp2.substring(23,29);
   }
   
-  newfu = async(callback) => {
-    return connection_sql.query("SELECT * FROM Table", (err,result) => {
-      if (err) {
-        callback(err);
-      }
-      callback(null, result);
-    })
-  }
-
-  var helloo = newfu(function(err,data) {
-    if(err) {
-      return err;
-    } else {
-      return data;
-    }
+  (async () => {
+    connection_sql.connect();
+    const result = await getInfo();
+    connection_sql.end();
   })
 
-  const final = await helloo;
-  const final2 = [];
-  for (value in final) {
-    final2.push(JSON.stringify(value));
+  function getInfo() {
+    return new Promise((resolve, reject) => {
+      connection_sql.query("SELECT * FROM Board", (err,result) => {
+        return err ? reject(err) : resolve(result);
+      });
+    })();
   }
   console.log(req.body);
 
