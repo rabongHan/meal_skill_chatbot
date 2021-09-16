@@ -153,13 +153,28 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   // });
   var tempor = 0;
   var heee = [];
+  let output;
   
-  connection_sql.query("SELECT * FROM Board", function(err, results) {
-    setValue(results);
-  });
-  function setValue(value) {
-    heee = value;
+  const setOutput = (rows) => {
+    output = rows;
+    console.log(output);
   }
+
+  connection_sql.connect(async(err) => {
+    if(err) {
+      console.log("DB Connection error", err);
+      return;
+    }
+    
+    let texting = 'SELECT * FROM Board';
+    connection_sql.query(texting, (err, rows) => {
+      if(err) {
+        console.log("internal error", err);
+        return;
+      }
+      setOutput(rows);
+    })
+  })
   if(tempor == 0) {
     var first_sql_conn = 'INSERT INTO Board (username, studentid)  VALUES (?,?)';
     connection_sql.query(first_sql_conn, [userId, userStudentNum], function(err, results) {
