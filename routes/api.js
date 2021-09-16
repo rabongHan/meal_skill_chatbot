@@ -150,7 +150,10 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   })
 
   const final = await helloo;
-
+  const final2 = [];
+  for (value in final) {
+    final2.push(JSON.stringify(value));
+  }
   console.log(req.body);
 
   const responseBody = {
@@ -159,7 +162,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       outputs: [
         {
           basicCard: {
-            description: `${JSON.stringify(final)}`
+            description: `${final2}`
           }
         }
       ] 
