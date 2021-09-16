@@ -21,7 +21,7 @@ function mobileChecking() {
 
 //school 인스턴스 생성  
 const School = require('school-kr');
-const { connection } = require("mongoose");
+const { connection, set } = require("mongoose");
 const school = new School()
 
 //청심국제고등학교로 학교 초기화 
@@ -131,58 +131,8 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   } else {
     var userStudentNum = temp2.substring(23,29);
   }
-  var final_text;
+  
 
-  var first_sql_conn = 'INSERT INTO Board (username, studentid)  VALUES (?,?)';
-  connection_sql.query(first_sql_conn, [userId, userStudentNum], function(err, results) {
-    if(err) {
-      console.log("이미 있음", err);
-      setFinal("NO");
-    }
-    setFinal("YES");
-  });
-  function setFinal(value) {
-    final_text = value;
-  }
-  // connection_sql.connect(function(err) {
-  //   if(err) throw err;
-  //   var checking = `SELECT EXISTS (SELECT * FROM Board WHERE username='${userId}' LIMIT 1) AS SUCCESS`;
-  //   connection_sql.query(checking, function(err, result, fields) {
-  //     if(err) throw error;
-  //     tempor = result;
-  //   });
-  // });
-  // var tempor = 0;
-
-  // const setOutput = (rows) => {
-  //   output = rows;
-  // }
-
-  // connection_sql.connect(async(err) => {
-  //   if(err) {
-  //     console.log("db connction error", err);
-  //     return;
-  //   }
-  //   let query = "SELECT * FROM Board";
-  //   connection_sql.query(query, (err, rows) => {
-  //     if(err) {
-  //       console.log("internal err", err);
-  //       return;
-  //     }
-  //     setOutput(rows);
-  //   })
-  // })
-
-  // if(tempor == 0) {
-  //   var first_sql_conn = 'INSERT INTO Board (username, studentid)  VALUES (?,?)';
-  //   connection_sql.query(first_sql_conn, [userId, userStudentNum], function(err, results) {
-  //   if(err) throw error;
-  //   });
-  //    final_text = (`${type(userId)} ${output}  yes`); 
-
-  // } else {
-  //   final_text = (`학번이 이미 등록되어 있습니다 ${type(userId)} ///${output}`);
-  // }
   console.log(req.body);
 
   const responseBody = {
@@ -191,7 +141,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       outputs: [
         {
           basicCard: {
-            description: final_text + final_text
+            description: 
           }
         }
       ] 
