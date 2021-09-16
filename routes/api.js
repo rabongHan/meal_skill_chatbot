@@ -146,6 +146,9 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       final2 = result;
     })
   }
+  function putting(value) {
+    final2 =  value;
+  }
 
   
   console.log(req.body);
