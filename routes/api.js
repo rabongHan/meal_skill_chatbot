@@ -130,23 +130,21 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     var userStudentNum = temp2.substring(23,29);
   } else {
     var userStudentNum = temp2.substring(23,29);
-  }
+  };
   
-  var output = [];
-
-  connection_sql.query("SELECT * FROM board", function(err, rows) {
-    if(err) {
-      return;
-    } else {
-      setValue(rows);
-    }
-  });
-
-  function setValue(value) {
-    output = value;
-    console.log(output)
+  query = async (callback) => { 
+    return connection_sql.query("select * from board", (err, result) => { 
+      if (err) { 
+        callback(err); 
+      } 
+      callback(null, result); 
+    }); 
   }
-  
+  var output = query((err, result) => {
+    return result;
+  })
+
+
   console.log(req.body);
 
   const responseBody = {
