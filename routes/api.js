@@ -132,25 +132,22 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     var userStudentNum = temp2.substring(23,29);
   }
   
-  newfu = async(callback) => {
-    return connection_sql.query("SELECT * FROM Table", (err,result) => {
-      if (err) {
-        callback(err);
-      }
-      callback(null, result);
-    })
+  var results = [];
+
+  var pushResults = function(rows) {
+    for (var i=0;i<2;i++) {
+      results.push(rows[i].studentid);
+    }
   }
-  var final2;
-  selectMethod = ()  => {
-    newfu((err, result) =>  {
-      final2 = result;
-    })
-  }
-  function putting(value) {
-    final2 =  value;
-  }
-  selectMethod();
-  
+
+  connection_sql.query("SELECT * FROM Board", function (err, rows, fields) {
+    if(!err) {
+      pushResults(rows);
+      console.log('results', results);
+    } else {
+      console.log('error',err)
+    }
+  })
   console.log(req.body);
 
   const responseBody = {
@@ -159,7 +156,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       outputs: [
         {
           basicCard: {
-            description: `${final2} ${typeof(final2)} `
+            description: `${JSON.stringify(results)} ${typeof(results)} `
           }
         }
       ] 
