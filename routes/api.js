@@ -132,20 +132,20 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     var userStudentNum = temp2.substring(23,29);
   }
   
-  function getInfo(callback) {
-    connection_sql.query("SELECT * FROM BOARD", function(err,result) {
-      if(err) {
-        callback(err, null);
-      } else {
-        callback(null, result[0]);
+  newfu = async(callback) => {
+    return connection_sql.query("SELECT * FROM Table", (err,result) => {
+      if (err) {
+        callback(err);
       }
-    }); 
+      callback(null, result[0]);
+    })
   }
-  var helloo = getInfo(function(err, data) {
+
+  var helloo = newfu(function(err,data) {
     if(err) {
-      return err;
+      return JSON.stringify(err);
     } else {
-      return data;
+      return JSON.stringify(data);
     }
   })
 
