@@ -159,7 +159,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       outputs: [
         {
           basicCard: {
-            description: `${final}`
+            description: `${JSON.stringify(final)}`
           }
         }
       ] 
