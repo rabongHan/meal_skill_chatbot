@@ -143,7 +143,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   }
   function getInfo() {
     return new Promise((resolve, reject) => {
-      connection_sql.query("SELECT studentid FROM Board", (err,result) => {
+      connection_sql.query("SELECT * FROM Board", (err,result) => {
         return err ? reject(err) : resolve(result);
       });
     });
@@ -156,7 +156,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       outputs: [
         {
           basicCard: {
-            description: `${final2} ${type(final2)}`
+            description: `${final2} ${typeof(final2)} `
           }
         }
       ] 
