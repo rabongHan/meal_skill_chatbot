@@ -137,7 +137,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       if (err) {
         callback(err);
       }
-      callback(null, await result);
+      callback(null, await(result));
     })
   }
 
