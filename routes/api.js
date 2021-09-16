@@ -152,7 +152,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   //   });
   // });
   var tempor = 0;
-  let output;
+  var output;
   
   function getData (callback) {
     connection_sql.connect();
