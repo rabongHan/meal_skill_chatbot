@@ -161,13 +161,10 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     connection_sql.query(first_sql_conn, [userId, userStudentNum], function(err, results) {
     if(err) throw error;
     });
-    setValue2(`${type(userId)} ${tempor}  yes`); 
+     final_text = (`${type(userId)} ${tempor}  yes`); 
 
   } else {
-    setValue2(`학번이 이미 등록되어 있습니다 ${tempor}`);
-  }
-  function setValue2(value) {
-    final_text = value
+    final_text = (`학번이 이미 등록되어 있습니다 ${tempor}`);
   }
   console.log(req.body);
 
