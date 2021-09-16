@@ -131,21 +131,23 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   } else {
     var userStudentNum = temp2.substring(23,29);
   }
-  var final2;
-  (async () => {
-    connection_sql.connect();
-    const result = await getInfo();
-    final2 = result;
-    connection_sql.end();
-  })();
-
-  function getInfo() {
-    return new Promise((resolve, reject) => {
-      connection_sql.query("SELECT * FROM Board", (err,result) => {
-        return err ? reject(err) : resolve(result);
-      });
-    });
+  
+  newfu = async(callback) => {
+    return connection_sql.query("SELECT * FROM Table", (err,result) => {
+      if (err) {
+        callback(err);
+      }
+      callback(null, result);
+    })
   }
+  var final2;
+  selectMethod = ()  => {
+    newfu((err, result) =>  {
+      final2 = result;
+    })
+  }
+
+  
   console.log(req.body);
 
   const responseBody = {
