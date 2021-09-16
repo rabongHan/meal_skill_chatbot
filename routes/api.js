@@ -154,26 +154,22 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   var tempor = 0;
   let output;
   
-  const setOutput = (rows) => {
-    output = rows;
-    console.log(output);
+  function getData (callback) {
+    connection_sql.connect();
+    var texting = "";
+    var querying = "SELECT * FROM Board";
+    connection_sql.query(querying, function(err, results, fields) {
+      if(err) return callback(err,null);
+
+      texting = JSON.stringify(results);
+
+      connection_sql.end();
+      console.log(results);
+      callback(null, tetxting);
+    })
   }
 
-  connection_sql.connect(async(err) => {
-    if(err) {
-      console.log("DB Connection error", err);
-      return;
-    }
-    
-    let texting = 'SELECT * FROM Board';
-    connection_sql.query(texting, (err, rows) => {
-      if(err) {
-        console.log("internal error", err);
-        return;
-      }
-      setOutput(rows);
-    })
-  })
+  output = getData();
   if(tempor == 0) {
     var first_sql_conn = 'INSERT INTO Board (username, studentid)  VALUES (?,?)';
     connection_sql.query(first_sql_conn, [userId, userStudentNum], function(err, results) {
