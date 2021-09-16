@@ -132,20 +132,29 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     var userStudentNum = temp2.substring(23,29);
   }
   
-  var final = [];
+  let output;
 
-  var pushResults = function(rows) {
-    final.push(rows);
+  const setOutput = (rows) => {
+    output = rows;
+    console.log(output);
   }
 
-  connection_sql.query("SELECT * FROM Board", function (err, results, fields) {
-    if(!err) {
-      pushResults(results);
-      console.log('results', results);
-    } else {
-      console.log('error',err)
+  connection_sql.connect(async(err) => {
+    if(err) {
+      console.log("DB fail", err);
+      return;
     }
-  })
+    console.log("Connectt");
+
+    let query = "SELECT * FROM Board";
+    connection_sql.query(query, (err, rows) => {
+      if(err) {
+        console.log("err", err);
+        return;
+      }
+      setOutput(rows);
+    });
+  });
   console.log(req.body);
 
   const responseBody = {
@@ -154,7 +163,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       outputs: [
         {
           basicCard: {
-            description: `${JSON.stringify(final)} ${typeof(final)} `
+            description: `${JSON.stringify(output)} ${typeof(output)} `
           }
         }
       ] 
