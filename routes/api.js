@@ -1,8 +1,8 @@
 const apiRouter = require("express").Router();
 const modernizr = require("modernizr"); //mobile checking
-const mysql2 = require('mysql2'); //mysql2
+const mysql = require('mysql'); //mysql
 // for db 
-const connection_sql = mysql2.createConnection({
+const connection_sql = mysql.createConnection({
   host : 'us-cdbr-east-04.cleardb.com',
   user : 'bd5b40975a7ae8',
   password : '63ebf715',

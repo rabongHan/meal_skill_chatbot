@@ -16,6 +16,7 @@
     "modernizr": "^3.11.8",
     "mongoose": "^5.13.7",
     "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
     "mysql2": "^2.3.0",
     "prohairesis": "^1.2.5",
     "school-kr": "^3.1.2"
