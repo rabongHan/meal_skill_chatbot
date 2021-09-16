@@ -143,11 +143,13 @@ apiRouter.post('/addStudentNum', async function(req,res) {
 
   var helloo = newfu(function(err,data) {
     if(err) {
-      return JSON.stringify(err);
+      return err;
     } else {
-      return JSON.stringify(data);
+      return data;
     }
   })
+
+  const final = await helloo;
 
   console.log(req.body);
 
@@ -157,7 +159,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       outputs: [
         {
           basicCard: {
-            description: `${helloo}`
+            description: `${final}`
           }
         }
       ] 
