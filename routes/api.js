@@ -136,7 +136,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
 
   var pushResults = function(rows) {
     for (var i=0;i<2;i++) {
-      results.push(rows[i].studentid);
+      results.push(rows[i]);
     }
   }
 
