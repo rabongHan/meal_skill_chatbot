@@ -149,7 +149,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   function putting(value) {
     final2 =  value;
   }
-
+  selectMethod();
   
   console.log(req.body);
 
