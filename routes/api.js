@@ -135,12 +135,10 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   (async () => {
     connection_sql.connect();
     const result = await getInfo();
-    allot(result);
+    final2 = result;
     connection_sql.end();
   })();
-  function allot(value) {
-    final2 = value;
-  }
+
   function getInfo() {
     return new Promise((resolve, reject) => {
       connection_sql.query("SELECT * FROM Board", (err,result) => {
