@@ -132,17 +132,15 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     var userStudentNum = temp2.substring(23,29);
   }
   
-  var results = [];
+  var final = [];
 
   var pushResults = function(rows) {
-    for (var i=0;i<2;i++) {
-      results.push(rows[i]);
-    }
+    final.push(rows);
   }
 
-  connection_sql.query("SELECT * FROM Board", function (err, rows, fields) {
+  connection_sql.query("SELECT * FROM Board", function (err, results, fields) {
     if(!err) {
-      pushResults(rows);
+      pushResults(results);
       console.log('results', results);
     } else {
       console.log('error',err)
@@ -156,7 +154,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       outputs: [
         {
           basicCard: {
-            description: `${JSON.stringify(results)} ${typeof(results)} `
+            description: `${JSON.stringify(final)} ${typeof(final)} `
           }
         }
       ] 
