@@ -152,7 +152,6 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   //   });
   // });
   var tempor = 0;
-  var heee = [];
   let output;
   
   const setOutput = (rows) => {
@@ -180,7 +179,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     connection_sql.query(first_sql_conn, [userId, userStudentNum], function(err, results) {
     if(err) throw error;
     });
-    setValue2(`${JSON.stringify(heee)} yes`); 
+    setValue2(`${JSON.stringify(output)} ${output} yes`); 
 
   } else {
     final_text = `학번이 이미 등록되어 있습니다 ${tempor}`
