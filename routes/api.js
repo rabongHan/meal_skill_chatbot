@@ -135,13 +135,15 @@ apiRouter.post('/addStudentNum', async function(req,res) {
 
   var first_sql_conn = 'INSERT INTO Board (username, studentid)  VALUES (?,?)';
   connection_sql.query(first_sql_conn, [userId, userStudentNum], function(err, results) {
-    try{
-        final_text = `성공 ${userStudentNum}`;
-    } catch(err) {
-        final_text = `실패 ${userStudentNum}`;
+    if(err) {
+      console.log("이미 있음", err);
+      setFinal("NO");
     }
+    setFinal("YES");
   });
-  
+  function setFinal(value) {
+    final_text = value;
+  }
   // connection_sql.connect(function(err) {
   //   if(err) throw err;
   //   var checking = `SELECT EXISTS (SELECT * FROM Board WHERE username='${userId}' LIMIT 1) AS SUCCESS`;
