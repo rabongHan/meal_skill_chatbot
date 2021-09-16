@@ -132,22 +132,22 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     var userStudentNum = temp2.substring(23,29);
   }
   
-  function get_info(data, callback) {
-    var sql = "SELECT * FROM Board";
-
-    connection_sql.query(sql, function(err, results) {
-      if(err) {
-        throw err;
+  newfu = async(callback) => {
+    return connection_sql.query("SELECT * FROM Table", (err,result) => {
+      if (err) {
+        callback(err);
       }
-      return callback(results[0]);
+      callback(null, result);
     })
   }
-  
-  var stuff_i_want = "";
 
-  get_info(parm, function(result) {
-    stuff_i_want = result;
-  });
+  var helloo = newfu(function(err,data) {
+    if(err) {
+      return err;
+    } else {
+      return data;
+    }
+  })
 
   console.log(req.body);
 
@@ -157,7 +157,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       outputs: [
         {
           basicCard: {
-            description: `${stuff_i_want}`
+            description: `${helloo}`
           }
         }
       ] 
