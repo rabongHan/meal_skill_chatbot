@@ -142,43 +142,29 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   //   final_text = `${userStudentNum} 학번 등록하였습니다.`
     
   // });
-  // var tempor = "";
-  // connection_sql.connect(function(err) {
-  //   if(err) throw err;
-  //   var checking = `SELECT EXISTS (SELECT * FROM Board WHERE username='${userId}' LIMIT 1) AS SUCCESS`;
-  //   connection_sql.query(checking, function(err, result, fields) {
-  //     if(err) throw error;
-  //     tempor = result;
-  //   });
-  // });
-  var tempor = 0;
-  var output;
-  
-  function getData (callback) {
-    connection_sql.connect();
-    var texting = "";
-    var querying = "SELECT * FROM Board";
-    connection_sql.query(querying, function(err, results, fields) {
-      if(err) return callback(err,null);
-
-      texting = JSON.stringify(results);
-
-      connection_sql.end();
-      console.log(results);
-      callback(null, tetxting);
-    })
+  var tempor = "";
+  connection_sql.connect(function(err) {
+    if(err) throw err;
+    var checking = `SELECT EXISTS (SELECT * FROM Board WHERE username='${userId}' LIMIT 1) AS SUCCESS`;
+    connection_sql.query(checking, function(err, result, fields) {
+      if(err) throw error;
+      setTempor(result);
+    });
+  });
+  function setTempor(value) {
+    tempor = JSON.stringify(value);
   }
 
-  output = getData();
+
   if(tempor == 0) {
     var first_sql_conn = 'INSERT INTO Board (username, studentid)  VALUES (?,?)';
     connection_sql.query(first_sql_conn, [userId, userStudentNum], function(err, results) {
     if(err) throw error;
     });
-    setValue2(`${JSON.stringify(output)} ${output} yes`); 
+    setValue2(`${type(userId)} ${tempor}  yes`); 
 
   } else {
-    final_text = `학번이 이미 등록되어 있습니다 ${tempor}`
+    setValue2(`학번이 이미 등록되어 있습니다 ${tempor}`);
   }
   function setValue2(value) {
     final_text = value
