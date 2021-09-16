@@ -137,14 +137,14 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     const result = await getInfo();
     final2 = result;
     connection_sql.end();
-  })
+  })();
 
   function getInfo() {
     return new Promise((resolve, reject) => {
       connection_sql.query("SELECT studentid FROM Board", (err,result) => {
         return err ? reject(err) : resolve(result[0].studentid);
       });
-    })();
+    });
   }
   console.log(req.body);
 
