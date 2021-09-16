@@ -140,9 +140,13 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       callback(null, result); 
     }); 
   }
-  var output = query((err, result) => {
+  function output() {
+    query((err, result) => {
     return result;
-  })
+    })
+  }
+  
+  var outputt = output();
 
 
   console.log(req.body);
@@ -153,7 +157,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       outputs: [
         {
           basicCard: {
-            description: `${JSON.stringify(output)} ${typeof(output)} `
+            description: `${JSON.stringify(outputt)} ${typeof(outputt)} `
           }
         }
       ] 
