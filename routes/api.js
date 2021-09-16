@@ -141,8 +141,8 @@ apiRouter.post('/addStudentNum', async function(req,res) {
 
   function getInfo() {
     return new Promise((resolve, reject) => {
-      connection_sql.query("SELECT * FROM Board", (err,result) => {
-        return err ? reject(err) : resolve(result);
+      connection_sql.query("SELECT studentid FROM Board", (err,result) => {
+        return err ? reject(err) : resolve(result[0].studentid);
       });
     })();
   }
