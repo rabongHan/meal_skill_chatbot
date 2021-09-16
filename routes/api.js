@@ -131,10 +131,11 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   } else {
     var userStudentNum = temp2.substring(23,29);
   }
-  
+  var final2;
   (async () => {
     connection_sql.connect();
     const result = await getInfo();
+    final2 = result;
     connection_sql.end();
   })
 
