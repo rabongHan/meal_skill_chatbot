@@ -22,6 +22,7 @@ function mobileChecking() {
 //school 인스턴스 생성  
 const School = require('school-kr');
 const { connection, set, ConnectionStates } = require("mongoose");
+const { query } = require("express");
 const school = new School()
 
 //청심국제고등학교로 학교 초기화 
@@ -140,11 +141,13 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       callback(null, result); 
     }); 
   }
-  function output() {
-    query(async(err, result) => {
-    return await result;
+  async function output() {
+    const resultant = await query((err,result) => {
+      return result;
     })
+    return resultant;
   }
+
   
   var outputt = output();
 
