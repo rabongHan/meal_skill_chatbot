@@ -133,9 +133,8 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     var userStudentNum = temp2.substring(23,29);
   };
   
-  
   async function getInfo() {
-    var output = await getYes("SELECT username FROM board limit 1 ");
+    var output = await getYes("SELECT * FROM Board WHERE username='${userId}' LIMIT 1) AS SUCCESS");
     return output;
   }
   
