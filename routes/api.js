@@ -134,21 +134,26 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   };
   
   
-  query = async (callback) => { 
-    return connection_sql.query("select * from board", (err, result) => { 
-      if (err) { 
-        callback(err); 
-      } 
-      callback(null, result); 
-    }); 
+  function getInfo() {
+    return output = await getYes('SELECT username FROM board');
   }
-
-  function newfu() {
-    connection_sql.query("SELECT * from board", async(err, result) => {
-      return await result;
-    })
+  
+  function getYes(databaseQuery) {
+    return new Promise(data => {
+      connection_sql.query(databaseQuery, function(error, resullt) {
+        if(error)  {
+          console.log(error);
+          throw error;
+        }
+        try {
+          data(result);
+        } catch(error) {
+          data({});
+          throw error;
+        }
+      });
+    });
   }
- 
 
 
   console.log(req.body);
@@ -159,7 +164,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       outputs: [
         {
           basicCard: {
-            description: JSON.stringify(newfu())
+            description: JSON.stringify(getInfo())
           }
         }
       ] 
