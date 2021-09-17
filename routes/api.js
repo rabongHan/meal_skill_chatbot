@@ -148,7 +148,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
         try {
           data(result);
         } catch(error) {
-          data({});
+          data("No");
           throw error;
         }
       });
