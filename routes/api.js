@@ -135,12 +135,12 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   
   
   async function getInfo() {
-    return output = await getYes('SELECT * FROM board');
+    return output = await getYes('SELECT username FROM board limit 1 ');
   }
   
   function getYes(databaseQuery) {
     return new Promise(data => {
-      connection_sql.query(databaseQuery, function(error, resullt) {
+      connection_sql.query(databaseQuery, function(error, result) {
         if(error)  {
           console.log(error);
           throw error;
