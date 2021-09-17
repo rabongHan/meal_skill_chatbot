@@ -140,6 +140,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   
   function getInfo(databaseQuery) {
     return new Promise(data => {
+      connection_sql.connect();
       connection_sql.query(databaseQuery, function(error, result) {
         if(error)  {
           console.log(error);
@@ -147,9 +148,10 @@ apiRouter.post('/addStudentNum', async function(req,res) {
         }
         data(result);
       });
+      connection_sql.end();
     });
   }
-  //
+  
   var finalText = "";
   var preCheckingString = JSON.stringify(await getIfThere());
   var checkingStudentExist = preCheckingString.substring(12,13);
@@ -169,7 +171,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     template: {
       outputs: [
         {
-          basicCard: { //ps
+          basicCard: { 
             description: `${finalText} // ${checkingStudentExist} // ${userId}`
           }
         }
