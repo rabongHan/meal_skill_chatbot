@@ -160,7 +160,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       outputs: [
         {
           basicCard: {
-            description: JSON.stringify(await getInfo())
+            description: `${getInfo()}`
           }
         }
       ] 
