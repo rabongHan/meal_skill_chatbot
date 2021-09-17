@@ -140,9 +140,9 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       callback(null, result); 
     }); 
   }
-  function output() {
+  async function output() {
     query((err, result) => {
-    return result;
+    return await result;
     })
   }
   
