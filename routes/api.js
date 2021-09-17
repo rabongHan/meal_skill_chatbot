@@ -134,7 +134,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   };
   
   async function getIfThere() {
-    var output = await getInfo("SELECT count(*) FROM board WHERE username='${userId}' AS SUCCESS");
+    var output = await getInfo("IF NOT EXISTS (SELECT * FROM board WHERE username='${userId}') AS SUCCESS");
     return output;
   }
   
