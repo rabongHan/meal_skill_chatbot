@@ -152,7 +152,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   var finalText = "";
   var preCheckingString = JSON.stringify(await getIfThere());
   var checkingStudentExist = preCheckingString.substring(12,13);
-  if(checkingStudentExist == "1") {
+  if(checkingStudentExist == "0") {
     const InsertingQuery = 'INSERT INTO Board (username, studentid)  VALUES (?,?)';
     connection_sql.query(InsertingQuery, [userId, userStudentNum], function(err,results) {
       if(err) throw err;
