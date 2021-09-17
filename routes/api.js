@@ -145,7 +145,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
 
   function newfu() {
     connection_sql.query("SELECT * from board", (err, result) => {
-      return result;
+      return await result;
     })
   }
  
