@@ -142,6 +142,12 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       callback(null, result); 
     }); 
   }
+
+  function newfu() {
+    connection_sql.query("SELECT * from board", (err, result) => {
+      return result;
+    })
+  }
  
 
 
@@ -153,7 +159,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       outputs: [
         {
           basicCard: {
-            description: `${query()} `
+            description: `${newfu()} `
           }
         }
       ] 
