@@ -135,7 +135,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   
   
   async function getInfo() {
-    return output = await getYes('SELECT username FROM board limit 1 ');
+    return output = await getYes("SELECT username FROM board limit 1 ");
   }
   
   function getYes(databaseQuery) {
@@ -145,12 +145,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
           console.log(error);
           throw error;
         }
-        try {
-          data(result);
-        } catch(error) {
-          data("No");
-          throw error;
-        }
+        data(result);
       });
     });
   }
