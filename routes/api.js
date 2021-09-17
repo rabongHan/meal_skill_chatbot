@@ -168,7 +168,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       outputs: [
         {
           basicCard: {
-            description: `${finalText}`
+            description: `${finalText} // ${checkingStudentExist}`
           }
         }
       ] 
