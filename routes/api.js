@@ -133,7 +133,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     var userStudentNum = temp2.substring(23,29);
   };
   
-  async function getIfThere() {
+  async function getIfThere2() {
     var output = await getInfo("SELECT EXISTS (SELECT * FROM board WHERE username='${userId}' LIMIT 1) AS SUCCESS");
     return output;
   }
@@ -150,7 +150,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     });
   }
   var finalText = "";
-  var preCheckingString = JSON.stringify(await getIfThere());
+  var preCheckingString = JSON.stringify(await getIfThere2());
   var checkingStudentExist = preCheckingString.substring(10,13);
   if(checkingStudentExist == "0") {
     const InsertingQuery = 'INSERT INTO Board (username, studentid)  VALUES (?,?)';
