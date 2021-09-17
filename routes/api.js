@@ -133,7 +133,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     var userStudentNum = temp2.substring(23,29);
   };
   
-  var outputt;
+  
   query = async (callback) => { 
     return connection_sql.query("select * from board", (err, result) => { 
       if (err) { 
@@ -141,11 +141,6 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       } 
       callback(null, result); 
     }); 
-  }
-  selectMethod = () => {
-    query((err, result) => {
-      return result;
-    })
   }
  
 
@@ -158,7 +153,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       outputs: [
         {
           basicCard: {
-            description: `${selectMethod()} `
+            description: `${query()} `
           }
         }
       ] 
