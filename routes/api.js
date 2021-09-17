@@ -149,6 +149,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       });
     });
   }
+  //
   var finalText = "";
   var preCheckingString = JSON.stringify(await getIfThere());
   var checkingStudentExist = preCheckingString.substring(12,13);
