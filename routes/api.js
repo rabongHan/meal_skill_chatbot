@@ -140,7 +140,6 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   
   function getInfo(databaseQuery) {
     return new Promise(data => {
-      connection_sql.connect();
       connection_sql.query(databaseQuery, function(error, result) {
         if(error)  {
           console.log(error);
@@ -148,7 +147,6 @@ apiRouter.post('/addStudentNum', async function(req,res) {
         }
         data(result);
       });
-      connection_sql.end();
     });
   }
   
