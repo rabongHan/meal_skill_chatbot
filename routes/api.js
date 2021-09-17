@@ -142,7 +142,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     }); 
   }
   async function output() {
-    const resultant = await query((err,result) => {
+    var resultant = await query((err,result) => {
       return result;
     })
     return resultant;
