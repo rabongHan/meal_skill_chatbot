@@ -158,7 +158,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     connection_sql.query(InsertingQuery, [userId, userStudentNum], function(err,results) {
       if(err) throw err;
     });
-    finalText = "학번 등록 완료."
+    finalText = "학번 등록 완료.."
   } else {
     finalText = "이미 있는 학번입니다."
   }
