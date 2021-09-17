@@ -135,7 +135,8 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   
   
   async function getInfo() {
-    return output = await getYes("SELECT username FROM board limit 1 ");
+    var output = await getYes("SELECT username FROM board limit 1 ");
+    return output;
   }
   
   function getYes(databaseQuery) {
@@ -159,7 +160,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       outputs: [
         {
           basicCard: {
-            description: JSON.stringify(getInfo())
+            description: JSON.stringify(await getInfo())
           }
         }
       ] 
