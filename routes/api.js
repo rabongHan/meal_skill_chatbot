@@ -133,12 +133,12 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     var userStudentNum = temp2.substring(23,29);
   };
   
-  async function getInfo() {
-    var output = await getYes("SELECT EXISTS (SELECT * FROM board WHERE username='${userId}' LIMIT 1) AS SUCCESS");
+  async function getIfThere() {
+    var output = await getInfo("SELECT EXISTS (SELECT * FROM board WHERE username='${userId}' LIMIT 1) AS SUCCESS");
     return output;
   }
   
-  function getYes(databaseQuery) {
+  function getInfo(databaseQuery) {
     return new Promise(data => {
       connection_sql.query(databaseQuery, function(error, result) {
         if(error)  {
@@ -149,8 +149,17 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       });
     });
   }
-
-
+  var finalText = "";
+  var checkingStudentExist = (JSON.stringify(await getIfThere())).substring(13,14);
+  if(checkingStudentExist == "1") {
+    const InsertingQuery = 'INSERT INTO Board (username, studentid)  VALUES (?,?)';
+    connection_sql.query(InsertingQuery, [userId, userStudentNum], function(err,results) {
+      if(err) throw err;
+    });
+    finalText = "학번 등록 완료."
+  } else {
+    finalText = "이미 있는 학번입니다."
+  }
   console.log(req.body);
 
   const responseBody = {
@@ -159,7 +168,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
       outputs: [
         {
           basicCard: {
-            description: `${JSON.stringify(await getInfo())}`
+            description: `${finalText}`
           }
         }
       ] 
