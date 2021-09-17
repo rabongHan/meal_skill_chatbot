@@ -135,7 +135,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   
   
   async function getInfo() {
-    return output = await getYes('SELECT username FROM board');
+    return output = await getYes('SELECT * FROM board');
   }
   
   function getYes(databaseQuery) {
