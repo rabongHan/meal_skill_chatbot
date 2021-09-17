@@ -134,7 +134,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   };
   
   async function getInfo() {
-    var output = await getYes("SELECT * FROM Board WHERE username='${userId}' LIMIT 1) AS SUCCESS");
+    var output = await getYes("SELECT EXISTS (SELECT * FROM board WHERE username='${userId}' LIMIT 1) AS SUCCESS");
     return output;
   }
   
