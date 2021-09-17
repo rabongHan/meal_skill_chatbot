@@ -150,7 +150,8 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     });
   }
   var finalText = "";
-  var checkingStudentExist = (JSON.stringify(await getIfThere())).substring(15,18);
+  var preCheckingString = JSON.stringify(await getIfThere());
+  var checkingStudentExist = preCheckingString.substring(5,18);
   if(checkingStudentExist == "1") {
     const InsertingQuery = 'INSERT INTO Board (username, studentid)  VALUES (?,?)';
     connection_sql.query(InsertingQuery, [userId, userStudentNum], function(err,results) {
