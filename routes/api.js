@@ -119,7 +119,7 @@ apiRouter.post('/todaymeal', async function(req,res) {
   res.json(responseBody)
 });
 
-
+//db --> mysql
 //학번 등록 챗봇 코드
 apiRouter.post('/addStudentNum', async function(req,res) {
   const userId = req.body.userRequest.user.id; //kakao 식별자
