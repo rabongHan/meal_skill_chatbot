@@ -134,7 +134,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   };
   
   async function getIfThere() {
-    var output = await getInfo("SELECT EXISTS(SELECT 1 FROM board WHERE username='${userId}') as SUCCESS");
+    var output = await getInfo("SELECT EXISTS(SELECT 1 FROM board WHERE username='${userId}')");
     return output;
   }
   
@@ -151,8 +151,8 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   }
   
   var finalText = "";
-  var preCheckingString = JSON.stringify(await getIfThere()[0].success);
-  var checkingStudentExist = preCheckingString.substring(0);
+  var preCheckingString = JSON.stringify(await getIfThere());
+  var checkingStudentExist = preCheckingString.substring(59,60);
   if(checkingStudentExist == "0") {
     const InsertingQuery = 'INSERT INTO Board (username, studentid)  VALUES (?,?)';
     connection_sql.query(InsertingQuery, [userId, userStudentNum], function(err,results) {
@@ -223,12 +223,30 @@ apiRouter.post('/changeStudentNum', async function(req,res) {
     var userStudentNum_revised = temp_2_2.substring(23,29);
   }
   
-  const checking = await database.query(`SELECT COUNT(*) FROM board WHERE username = '$userId'`);
+  async function getIfThere() {
+    var output = await getInfo("SELECT EXISTS(SELECT 1 FROM board WHERE username='${userId}')");
+    return output;
+  }
+  
+  function getInfo(databaseQuery) {
+    return new Promise(data => {
+      connection_sql.query(databaseQuery, function(error, result) {
+        if(error)  {
+          console.log(error);
+          throw error;
+        }
+        data(result);
+      });
+    });
+  }
+  var preCheckingString2 = JSON.stringify(await getIfThere());
+  var checkingStudentExist2 = preCheckingString2.substring(59,60);
+
   //학번이 등록 안된 경우
-  if(checking == 0) {
+  if(checkingStudentExist2 == 0) {
     var extra_text = "학번이 등록되지 않았습니다."
   } else {
-      await database.query(`
+      connection_sql.query(`
         UPDATE board SET studentId='$userStudentNum_revised' WHERE username='$userId'
       `)
       var extra_text = `${userStudentNum_revised} 학번으로 수정되었습니다.`  
