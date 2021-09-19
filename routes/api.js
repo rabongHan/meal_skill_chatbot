@@ -134,7 +134,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   };
   
   async function getIfThere() {
-    var output = await getInfo("SELECT EXISTS(SELECT 1 FROM board WHERE username = ?)");
+    var output = await getInfo("SELECT EXISTS(SELECT 1 FROM board WHERE username = ?) as SUCCESS");
     return output;
   }
   
@@ -152,7 +152,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   
   var finalText = "";
   var preCheckingString = JSON.stringify(await getIfThere());
-  var checkingStudentExist = preCheckingString.substring(59);
+  var checkingStudentExist = preCheckingString.substring(12,13);
   if(checkingStudentExist == "0") {
     const InsertingQuery = 'INSERT INTO Board (username, studentid)  VALUES (?,?)';
     connection_sql.query(InsertingQuery, [userId, userStudentNum], function(err,results) {
@@ -224,7 +224,7 @@ apiRouter.post('/changeStudentNum', async function(req,res) {
   }
   
   async function getIfThere() {
-    var output = await getInfo("SELECT EXISTS(SELECT 1 FROM board WHERE username = ?)");
+    var output = await getInfo("SELECT EXISTS(SELECT 1 FROM board WHERE username = ?) as SUCCESS");
     return output;
   }
   
@@ -240,7 +240,7 @@ apiRouter.post('/changeStudentNum', async function(req,res) {
     });
   }
   var preCheckingString2 = JSON.stringify(await getIfThere());
-  var checkingStudentExist2 = preCheckingString2.substring(59,60);
+  var checkingStudentExist2 = preCheckingString2.substring(12,13);
 
   //학번이 등록 안된 경우
   if(checkingStudentExist2 == 0) {
