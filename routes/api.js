@@ -223,12 +223,12 @@ apiRouter.post('/changeStudentNum', async function(req,res) {
     var userStudentNum_revised = temp_2_2.substring(23,29);
   }
   
-  async function getIfThere() {
-    var output = await getInfo("SELECT EXISTS(SELECT 1 FROM board WHERE username = ?) as SUCCESS");
-    return output;
+  async function getIfThere2() {
+    var output2 = await getInfo2("SELECT EXISTS(SELECT 1 FROM board WHERE username = ?) as SUCCESS");
+    return output2;
   }
   
-  function getInfo(databaseQuery) {
+  function getInfo2(databaseQuery) {
     return new Promise(data => {
       connection_sql.query(databaseQuery, [userId], function(error, result) {
         if(error)  {
@@ -239,7 +239,7 @@ apiRouter.post('/changeStudentNum', async function(req,res) {
       });
     });
   }
-  var preCheckingString2 = JSON.stringify(await getIfThere());
+  var preCheckingString2 = JSON.stringify(await getIfThere2());
   var checkingStudentExist2 = preCheckingString2.substring(12,13);
 
   //학번이 등록 안된 경우
@@ -388,12 +388,12 @@ apiRouter.post('/studenttimetable', async function(req,res) {
     },
   };
 
-  async function getIfThere() {
-    var output = await getInfo("SELECT EXISTS(SELECT 1 FROM board WHERE username = ?) as SUCCESS");
-    return output;
+  async function getIfThere3() {
+    var output3 = await getInfo3("SELECT EXISTS(SELECT 1 FROM board WHERE username = ?) as SUCCESS");
+    return output3;
   }
   
-  function getInfo(databaseQuery) {
+  function getInfo3(databaseQuery) {
     return new Promise(data => {
       connection_sql.query(databaseQuery, [userId], function(error, result) {
         if(error)  {
@@ -404,14 +404,14 @@ apiRouter.post('/studenttimetable', async function(req,res) {
       });
     });
   }
-  var preCheckingString3 = JSON.stringify(await getIfThere());
+  var preCheckingString3 = JSON.stringify(await getIfThere3());
   var checkingStudentExist3 = preCheckingString3.substring(12,13);
   
-  async function getIfThere_2() {
-    var output2 = await getInfo_2("SELECT studentid FROM board WHERE username = ?");
-    return output2;
+  async function getIfThere3_2() {
+    var output3_2 = await getInfo3_2("SELECT studentid FROM board WHERE username = ?");
+    return output3_2;
   }
-  function getInfo_2(databaseQuery) {
+  function getInfo3_2(databaseQuery) {
     return new Promise(data => {
       connection_sql.query(databaseQuery, [userId], function(error, result) {
         if(error)  {
@@ -422,7 +422,7 @@ apiRouter.post('/studenttimetable', async function(req,res) {
       });
     });
   }
-  var preCheckingString3_2 = JSON.stringify(await getIfThere_2());
+  var preCheckingString3_2 = JSON.stringify(await getIfThere3_2());
   var checkingStudentExist3_2 = preCheckingString3_2.substring(15,21);
   
   //시간표 상 key(=존재 학년)과 학번이 일치하는지, 즉 있는 학년인지 판단  
@@ -581,14 +581,49 @@ apiRouter.post('/studenttimetable_tomorrow', async function(req,res) {
       "6": "오늘은 수업이 없습니다", 
     },
   };
-
+  async function getIfThere4() {
+    var output4 = await getInfo4("SELECT EXISTS(SELECT 1 FROM board WHERE username = ?) as SUCCESS");
+    return output4;
+  }
+  
+  function getInfo4(databaseQuery) {
+    return new Promise(data => {
+      connection_sql.query(databaseQuery, [userId], function(error, result) {
+        if(error)  {
+          console.log(error);
+          throw error;
+        }
+        data(result);
+      });
+    });
+  }
+  var preCheckingString4 = JSON.stringify(await getIfThere4());
+  var checkingStudentExist4 = preCheckingString4.substring(12,13);
+  
+  async function getIfThere4_2() {
+    var output4_2 = await getInfo4_2("SELECT studentid FROM board WHERE username = ?");
+    return output4_2;
+  }
+  function getInfo4_2(databaseQuery) {
+    return new Promise(data => {
+      connection_sql.query(databaseQuery, [userId], function(error, result) {
+        if(error)  {
+          console.log(error);
+          throw error;
+        }
+        data(result);
+      });
+    });
+  }
+  var preCheckingString4_2 = JSON.stringify(await getIfThere4_2());
+  var checkingStudentExist4_2 = preCheckingString4_2.substring(15,21);
 
 
   //시간표 상 key(=존재 학년)과 학번이 일치하는지, 즉 있는 학년인지 판단  
-  if(!userDB[userId]) {
+  if(checkingStudentExist4 == "0") {
     var timetable_printing_final2 = "먼저 학번을 등록해주세요."
-  } else if(userDB[userId].substring(0,2) + userDB[userId].substring(3,4) in student_timetable) {
-    const temp_student_num = userDB[userId];
+  } else if(checkingStudentExist4_2.substring(0,2) + checkingStudentExist4_2.substring(3,4) in student_timetable) {
+    const temp_student_num = checkingStudentExist4_2;
     const cut_student_num = temp_student_num.substring(0,2) + temp_student_num.substring(3,4); // 30324 --> " 33"
     const timetable_printing_1 = JSON.stringify(student_timetable[cut_student_num][tomorrow_day_3]);
     const timetable_printing_2 = timetable_printing_1.replace(/\"/gi, "");
@@ -597,7 +632,7 @@ apiRouter.post('/studenttimetable_tomorrow', async function(req,res) {
     const timetable_printing_5 = timetable_printing_4.replace(/:/gi, ": ");
     var timetable_printing_final2 = `${arrDayStr[tomorrow_day_3]}요일 ${temp_student_num.substring(0,2)}학년 ${temp_student_num.substring(3,4)}반 시간표\n` + timetable_printing_5.replace(/,/gi, "\n");
   } else {
-    const temp_student_num = userDB[userId];
+    const temp_student_num = checkingStudentExist4_2;
     const cut_student_num = temp_student_num.substring(0,2) + temp_student_num.substring(3,4); // 30324 --> " 33"
     var timetable_printing_final2 = `현재 등록 학번: ${temp_student_num} \n이 학번에 해당하는 시간표를 찾을 수 없습니다.`
   }
