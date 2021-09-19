@@ -251,14 +251,6 @@ apiRouter.post('/changeStudentNum', async function(req,res) {
       `)
       var extra_text = `${userStudentNum_revised} 학번으로 수정되었습니다.`  
   }
-  // if(!userDB[userId]) {
-  //   var extra_text = "학번이 등록되지 않았습니다."
-  // } else if(userDB[userId] == userStudentNum_revised) { //수정하려는 학번과 기존 학번이 같은 경우 
-  //   var extra_text = "등록된 학번과 같은 학번입니다."
-  // } else {
-  //   userDB[userId] = userStudentNum_revised;
-  //   var extra_text = `${userStudentNum_revised} 학번으로 수정되었습니다.`
-  // }
 
   console.log(req.body);
 
