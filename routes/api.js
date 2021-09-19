@@ -134,13 +134,13 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   };
   
   async function getIfThere() {
-    var output = await getInfo("SELECT EXISTS(SELECT 1 FROM board WHERE username='${userId}')");
+    var output = await getInfo("SELECT EXISTS(SELECT 1 FROM board WHERE username = ?)");
     return output;
   }
   
   function getInfo(databaseQuery) {
     return new Promise(data => {
-      connection_sql.query(databaseQuery, function(error, result) {
+      connection_sql.query(databaseQuery, [userId], function(error, result) {
         if(error)  {
           console.log(error);
           throw error;
@@ -224,13 +224,13 @@ apiRouter.post('/changeStudentNum', async function(req,res) {
   }
   
   async function getIfThere() {
-    var output = await getInfo("SELECT EXISTS(SELECT 1 FROM board WHERE username='${userId}')");
+    var output = await getInfo("SELECT EXISTS(SELECT 1 FROM board WHERE username = ?)");
     return output;
   }
   
   function getInfo(databaseQuery) {
     return new Promise(data => {
-      connection_sql.query(databaseQuery, function(error, result) {
+      connection_sql.query(databaseQuery, [userId], function(error, result) {
         if(error)  {
           console.log(error);
           throw error;
