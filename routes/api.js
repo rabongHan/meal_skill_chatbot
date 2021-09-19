@@ -428,7 +428,7 @@ apiRouter.post('/studenttimetable', async function(req,res) {
   //시간표 상 key(=존재 학년)과 학번이 일치하는지, 즉 있는 학년인지 판단  
   if(checkingStudentExist3 == "0") {
     var timetable_printing_final = "먼저 학번을 등록해주세요."
-  } else if(checkingStudentExist3_2 in student_timetable) {
+  } else if(checkingStudentExist3_2.substring(0,2) + checkingStudentExist3_2.substring(3,4) in student_timetable) {
     const temp_student_num = checkingStudentExist3_2;
     const cut_student_num = temp_student_num.substring(0,2) + temp_student_num.substring(3,4); // 30324 --> " 33"
     const timetable_printing_1 = JSON.stringify(student_timetable[cut_student_num][today_day_2]);
