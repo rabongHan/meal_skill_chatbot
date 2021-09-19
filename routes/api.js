@@ -158,7 +158,7 @@ apiRouter.post('/addStudentNum', async function(req,res) {
     connection_sql.query(InsertingQuery, [userId, userStudentNum], function(err,results) {
       if(err) throw err;
     });
-    finalText = "학번 등록 완료.."
+    finalText = `${userStudentNum} 으로 학번을 등록하였습니다.`
   } else {
     finalText = "이미 있는 학번입니다."
   }
@@ -388,11 +388,48 @@ apiRouter.post('/studenttimetable', async function(req,res) {
     },
   };
 
+  async function getIfThere() {
+    var output = await getInfo("SELECT EXISTS(SELECT 1 FROM board WHERE username = ?) as SUCCESS");
+    return output;
+  }
+  
+  function getInfo(databaseQuery) {
+    return new Promise(data => {
+      connection_sql.query(databaseQuery, [userId], function(error, result) {
+        if(error)  {
+          console.log(error);
+          throw error;
+        }
+        data(result);
+      });
+    });
+  }
+  var preCheckingString3 = JSON.stringify(await getIfThere());
+  var checkingStudentExist3 = preCheckingString3.substring(12,13);
+  
+  async function getIfThere_2() {
+    var output2 = await getInfo_2("SELECT studentid FROM board WHERE username = ?");
+    return output2;
+  }
+  function getInfo_2(databaseQuery) {
+    return new Promise(data => {
+      connection_sql.query(databaseQuery, [userId], function(error, result) {
+        if(error)  {
+          console.log(error);
+          throw error;
+        }
+        data(result);
+      });
+    });
+  }
+  var preCheckingString3_2 = JSON.stringify(await getIfThere_2());
+  var checkingStudentExist3_2 = preCheckingString3.substring(13);
+  
   //시간표 상 key(=존재 학년)과 학번이 일치하는지, 즉 있는 학년인지 판단  
-  if(!userDB[userId]) {
+  if(checkingStudentExist3 == "0") {
     var timetable_printing_final = "먼저 학번을 등록해주세요."
-  } else if(userDB[userId].substring(0,2) + userDB[userId].substring(3,4) in student_timetable) {
-    const temp_student_num = userDB[userId];
+  } else if(checkingStudentExist3_2 in student_timetable) {
+    const temp_student_num = checkingStudentExist3_2;
     const cut_student_num = temp_student_num.substring(0,2) + temp_student_num.substring(3,4); // 30324 --> " 33"
     const timetable_printing_1 = JSON.stringify(student_timetable[cut_student_num][today_day_2]);
     const timetable_printing_2 = timetable_printing_1.replace(/\"/gi, "");
@@ -401,9 +438,9 @@ apiRouter.post('/studenttimetable', async function(req,res) {
     const timetable_printing_5 = timetable_printing_4.replace(/:/gi, ": ");
     var timetable_printing_final = `${arrDayStr[today_day_2]}요일 ${temp_student_num.substring(0,2)}학년 ${temp_student_num.substring(3,4)}반 시간표\n` + timetable_printing_5.replace(/,/gi, "\n");
   } else {
-    const temp_student_num = userDB[userId];
+    const temp_student_num = checkingStudentExist3_2;
     const cut_student_num = temp_student_num.substring(0,2) + temp_student_num.substring(3,4); // 30324 --> " 33"
-    var timetable_printing_final = `현재 등록 학번: ${temp_student_num} \n이 학번에 해당하는 시간표를 찾을 수 없습니다.`
+    var timetable_printing_final = `${checkingStudentExist3_2}현재 등록 학번: ${temp_student_num} \n이 학번에 해당하는 시간표를 찾을 수 없습니다.`
   }
 
 
