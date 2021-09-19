@@ -423,7 +423,7 @@ apiRouter.post('/studenttimetable', async function(req,res) {
     });
   }
   var preCheckingString3_2 = JSON.stringify(await getIfThere_2());
-  var checkingStudentExist3_2 = preCheckingString3.substring(5);
+  var checkingStudentExist3_2 = preCheckingString3_2.substring(5);
   
   //시간표 상 key(=존재 학년)과 학번이 일치하는지, 즉 있는 학년인지 판단  
   if(checkingStudentExist3 == "0") {
