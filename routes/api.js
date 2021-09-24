@@ -18,7 +18,7 @@ function mobileChecking() {
     return false;
   }
 }
-
+//
 //school 인스턴스 생성  
 const School = require('school-kr');
 const { connection, set, ConnectionStates } = require("mongoose");
