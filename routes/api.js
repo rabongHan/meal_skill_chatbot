@@ -249,7 +249,7 @@ apiRouter.post('/changeStudentNum', async function(req,res) {
   }
   var preCheckingString2 = JSON.stringify(await getIfThere2());
   var checkingStudentExist2 = preCheckingString2.substring(12,13);
-
+  //
   //학번이 등록 안된 경우
   if(checkingStudentExist2 == 0) {
     var extra_text = "학번이 등록되지 않았습니다."
