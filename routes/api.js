@@ -267,7 +267,7 @@ apiRouter.post('/changeStudentNum', async function(req,res) {
       });
       var extra_text = `${userStudentNum_revised} 학번으로 수정되었습니다.`  
   }
-
+//
   console.log(req.body);
 
   const responseBody = {
