@@ -261,7 +261,6 @@ apiRouter.post('/changeStudentNum', async function(req,res) {
             console.log(error);
             throw error;
           }
-          data(result);
         });
         connection.release();
       });
