@@ -8,7 +8,7 @@ const connection_sql = mysql.createConnection({
   password : '63ebf715',
   database : 'heroku_e881962895583c8'
 });
-// 
+// //
 setInterval(function () {
   connection_sql.query('SELECT 1');
 }, 200);
