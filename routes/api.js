@@ -1,8 +1,8 @@
 const apiRouter = require("express").Router();
 const modernizr = require("modernizr"); //mobile checking
 const mysql = require('mysql'); //mysql
-// for db 
-const connection_sql = mysql.createConnection({
+// for db - pooling
+const connection_sql = mysql.createPool({
   host : 'us-cdbr-east-04.cleardb.com',
   user : 'bd5b40975a7ae8',
   password : '63ebf715',
@@ -18,7 +18,7 @@ function mobileChecking() {
     return false;
   }
 }
-//
+
 //school 인스턴스 생성  
 const School = require('school-kr');
 const { connection, set, ConnectionStates } = require("mongoose");
@@ -140,13 +140,17 @@ apiRouter.post('/addStudentNum', async function(req,res) {
   
   function getInfo(databaseQuery) {
     return new Promise(data => {
-      connection_sql.query(databaseQuery, [userId], function(error, result) {
-        if(error)  {
-          console.log(error);
-          throw error;
-        }
-        data(result);
-      });
+      connection_sql.getConnection((err,connection) => {
+        if(err) throw err;
+        connection.query(databaseQuery, [userId], function(error, result) {
+          if(error)  {
+            console.log(error);
+            throw error;
+          }
+          data(result);
+        });
+        connection.release();
+      })
     });
   }
   
@@ -230,13 +234,17 @@ apiRouter.post('/changeStudentNum', async function(req,res) {
   
   function getInfo2(databaseQuery) {
     return new Promise(data => {
-      connection_sql.query(databaseQuery, [userId], function(error, result) {
-        if(error)  {
-          console.log(error);
-          throw error;
-        }
-        data(result);
-      });
+      connection_sql.getConnection((err,connection) => {
+        if(err) throw err;
+        connection.query(databaseQuery, [userId], function(error, result) {
+          if(error)  {
+            console.log(error);
+            throw error;
+          }
+          data(result);
+        });
+        connection.release();
+      })
     });
   }
   var preCheckingString2 = JSON.stringify(await getIfThere2());
@@ -246,9 +254,13 @@ apiRouter.post('/changeStudentNum', async function(req,res) {
   if(checkingStudentExist2 == 0) {
     var extra_text = "학번이 등록되지 않았습니다."
   } else {
-      connection_sql.query(`
+      connection_sql.getConnection((err,connection) => {
+        if(err) throw err;
+        connection.query(`
         UPDATE board SET studentId='$userStudentNum_revised' WHERE username='$userId'
-      `)
+        `)
+        connection.release();
+      });
       var extra_text = `${userStudentNum_revised} 학번으로 수정되었습니다.`  
   }
 
@@ -395,13 +407,17 @@ apiRouter.post('/studenttimetable', async function(req,res) {
   
   function getInfo3(databaseQuery) {
     return new Promise(data => {
-      connection_sql.query(databaseQuery, [userId], function(error, result) {
-        if(error)  {
-          console.log(error);
-          throw error;
-        }
-        data(result);
-      });
+      connection_sql.getConnection((err,connection) => {
+        if(err) throw err;
+        connection.query(databaseQuery, [userId], function(error, result) {
+          if(error)  {
+            console.log(error);
+            throw error;
+          }
+          data(result);
+        });
+        connection.release();
+      })
     });
   }
   var preCheckingString3 = JSON.stringify(await getIfThere3());
@@ -413,13 +429,17 @@ apiRouter.post('/studenttimetable', async function(req,res) {
   }
   function getInfo3_2(databaseQuery) {
     return new Promise(data => {
-      connection_sql.query(databaseQuery, [userId], function(error, result) {
-        if(error)  {
-          console.log(error);
-          throw error;
-        }
-        data(result);
-      });
+      connection_sql.getConnection((err,connection) => {
+        if(err) throw err;
+        connection.query(databaseQuery, [userId], function(error, result) {
+          if(error)  {
+            console.log(error);
+            throw error;
+          }
+          data(result);
+        });
+        connection.release();
+      })
     });
   }
   var preCheckingString3_2 = JSON.stringify(await getIfThere3_2());
@@ -588,13 +608,17 @@ apiRouter.post('/studenttimetable_tomorrow', async function(req,res) {
   
   function getInfo4(databaseQuery) {
     return new Promise(data => {
-      connection_sql.query(databaseQuery, [userId], function(error, result) {
-        if(error)  {
-          console.log(error);
-          throw error;
-        }
-        data(result);
-      });
+      connection_sql.getConnection((err,connection) => {
+        if(err) throw err;
+        connection.query(databaseQuery, [userId], function(error, result) {
+          if(error)  {
+            console.log(error);
+            throw error;
+          }
+          data(result);
+        });
+        connection.release();
+      })
     });
   }
   var preCheckingString4 = JSON.stringify(await getIfThere4());
@@ -606,13 +630,17 @@ apiRouter.post('/studenttimetable_tomorrow', async function(req,res) {
   }
   function getInfo4_2(databaseQuery) {
     return new Promise(data => {
-      connection_sql.query(databaseQuery, [userId], function(error, result) {
-        if(error)  {
-          console.log(error);
-          throw error;
-        }
-        data(result);
-      });
+      connection_sql.getConnection((err,connection) => {
+        if(err) throw err;
+        connection.query(databaseQuery, [userId], function(error, result) {
+          if(error)  {
+            console.log(error);
+            throw error;
+          }
+          data(result);
+        });
+        connection.release();
+      })
     });
   }
   var preCheckingString4_2 = JSON.stringify(await getIfThere4_2());
