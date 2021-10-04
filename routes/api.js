@@ -256,9 +256,13 @@ apiRouter.post('/changeStudentNum', async function(req,res) {
   } else {
       connection_sql.getConnection((err,connection) => {
         if(err) throw err;
-        connection.query(`
-        UPDATE board SET studentId='$userStudentNum_revised' WHERE username='$userId'
-        `)
+        connection.query("UPDATE board SET studentId= ? WHERE username=?", [userStudentNum_revised, userId], function(error, result) {
+          if(error)  {
+            console.log(error);
+            throw error;
+          }
+          data(result);
+        });
         connection.release();
       });
       var extra_text = `${userStudentNum_revised} 학번으로 수정되었습니다.`  
