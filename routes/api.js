@@ -9,6 +9,24 @@ const connection_sql = mysql.createConnection({
   database : 'heroku_e881962895583c8'
 });
 // 
+function handleDisconnect() {
+  connection_sql.connect(function(err) {            
+    if(err) {                            
+      console.log('error when connecting to db:', err);
+      setTimeout(handleDisconnect, 2000); 
+    }                                   
+  });                                 
+                                         
+  connection_sql.on('error', function(err) {
+    console.log('db error', err);
+    if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
+      return handleDisconnect();                      
+    } else {                                    
+      throw err;                              
+    }
+  });
+}
+handleDisconnect();
 
 //mobile checking function
 function mobileChecking() {
