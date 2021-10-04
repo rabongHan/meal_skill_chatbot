@@ -9,7 +9,9 @@ const connection_sql = mysql.createConnection({
   database : 'heroku_e881962895583c8'
 });
 // 
-
+setInterval(function () {
+  connection_sql.query('SELECT 1');
+}, 200);
 
 //mobile checking function
 function mobileChecking() {
